@@ -12,6 +12,7 @@ export const schema = gql`
     mainImage: String
     season: String
     airedStart: String
+    description: String
     airedEnd: String
     duration: String
     sourceMaterialType: String

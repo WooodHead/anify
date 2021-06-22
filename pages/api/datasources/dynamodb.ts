@@ -28,6 +28,7 @@ export class AnimeEntity extends Document {
   sourceMaterialType: string = ''
   rating: string | undefined
   episodes: number | undefined
+  description: string | undefined
   mainImage: string | undefined
   season: string | undefined
   airedStart: string | undefined
