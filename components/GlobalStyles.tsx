@@ -4,8 +4,12 @@ import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
 
 const CustomStyles = createGlobalStyle`
   body {
-    -webkit-tap-highlight-color: ${theme`colors.purple.500`};
-    ${tw`antialiased`}
+    -webkit-tap-highlight-color: ${theme`colors.green.500`};
+    ${tw`antialiased bg-gray-50 text-gray-900`}
+  }
+
+  button, a {
+    ${tw`focus:outline-none`}
   }
 `
 
