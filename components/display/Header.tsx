@@ -111,6 +111,6 @@ const SettingsMenu = tw(
   motion.div,
 )`absolute z-30 top-full right-0 bg-white dark:bg-gray-800 py-2 shadow-lg transition-colors`
 
-const SettingsMenuItem = tw.div`flex justify-between items-center py-2 px-8 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none transition-colors`
+const SettingsMenuItem = tw.div`flex justify-between items-center py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer select-none transition-colors`
 
 const SettingsMenuText = tw.p`mr-6`
