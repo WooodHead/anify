@@ -31,7 +31,7 @@ const Header = ({ onHamburgerClick }: HeaderTypes) => {
     if (resolvedTheme !== colorMode) toggleColorMode()
   }, [])
 
-  const toggleDarkMode = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleDarkMode = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
     toggleColorMode()
