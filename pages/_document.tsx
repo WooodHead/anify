@@ -1,6 +1,5 @@
 import Document, { DocumentContext } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
-
 class MyDocument extends Document {
   // avoid ugly Flash Of Unstyled Content (FOUC)
   static async getInitialProps(ctx: DocumentContext) {
