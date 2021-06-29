@@ -10,6 +10,7 @@ export const schema = gql`
     rating: String
     episodes: Int
     mainImage: String
+    blurredMainImage: String
     season: String
     airedStart: String
     description: String
