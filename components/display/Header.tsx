@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useClickAway } from 'react-use'
 import Logo from './Logo'
+import { Search } from 'components/anime-search'
 
 type HeaderTypes = {
   onHamburgerClick: () => void
@@ -45,6 +46,8 @@ const Header = ({ onHamburgerClick }: HeaderTypes) => {
         <LogoContainer>
           <Logo size="medium" />
         </LogoContainer>
+
+        <Search />
 
         <Settings ref={settingsMenuRef}>
           <SettingsButton
@@ -90,22 +93,22 @@ export default Header
 
 const Container = styled.div`
   ${tw`relative bg-white dark:bg-black grid py-4 px-6 items-center transition-colors`}
-  grid-template-columns: auto 1fr 1fr;
+  grid-template-columns: auto auto 1fr 1fr;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: auto 1fr auto auto;
   }
 `
 
 const HamburgerButton = tw(
   HiMenu,
-)`h-6 w-6 mr-7 cursor-pointer hover:text-green-500`
+)`h-6 w-6 mr-7 cursor-pointer hover:text-emerald-500`
 
-const LogoContainer = tw.div`text-center md:text-left`
+const LogoContainer = tw.div`text-left`
 
 const Settings = tw.div`justify-self-end`
 
-const SettingsButton = tw(HiCog)`h-6 w-6 cursor-pointer hover:text-green-500`
+const SettingsButton = tw(HiCog)`h-6 w-6 cursor-pointer hover:text-emerald-500`
 
 const SettingsMenu = tw(
   motion.div,
