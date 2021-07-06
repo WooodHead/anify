@@ -50,7 +50,7 @@ export const schema = gql`
     nbHits: Int!
     hitsPerPage: Int!
     message: String
-    limit: Int
+    length: Int
     offset: Int
   }
 `
