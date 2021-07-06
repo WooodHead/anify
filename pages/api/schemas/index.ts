@@ -39,7 +39,7 @@ export const schema = gql`
       page: Int
       hitsPerPage: Int
       offset: Int
-      length: Int
+      limit: Int
     ): SearchResponse!
   }
 
@@ -50,5 +50,7 @@ export const schema = gql`
     nbHits: Int!
     hitsPerPage: Int!
     message: String
+    limit: Int
+    offset: Int
   }
 `

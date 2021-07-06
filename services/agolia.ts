@@ -22,17 +22,19 @@ export class Agolia extends DataSource {
     page,
     hitsPerPage,
     offset,
-    length,
+    limit,
   }: QuerySearchAnimeArgs) {
     const results = await this.index.search(query, {
       hitsPerPage: hitsPerPage || undefined,
       page: page || undefined,
       offset: offset || undefined,
-      length: length || undefined,
+      length: limit || undefined,
     })
 
     return {
       hits: results.hits,
+      offset: results.offset,
+      length: results.length,
       page: results.page,
       nbPages: results.nbPages,
       nbHits: results.nbHits,
