@@ -9,15 +9,18 @@ import DesktopSearchModal from './DesktopSearchModal'
 import MobileSearchModal from './MobileSearchModal'
 
 const SEARCH_QUERY = gql`
-  query SearchAnime($query: String!) {
-    searchAnime(query: $query) {
-      slug
-      title
-      mainImage
-      type
-      status
-      genres
-      mainImageBlurred
+  query SearchAnime($query: String!, $offset: Int, $limit: Int) {
+    searchAnime(query: $query, offset: $offset, limit: $limit) {
+      hits {
+        slug
+        title
+        mainImage
+        type
+        status
+        genres
+        mainImageBlurred
+      }
+      nbHits
     }
   }
 `
@@ -30,6 +33,8 @@ const Search = () => {
     {
       variables: {
         query: apolloSearchTerm,
+        offset: 0,
+        limit: 20,
       },
       skip: apolloSearchTerm === '',
     },
@@ -53,6 +58,13 @@ const Search = () => {
     if (!isModalOpen) setClientSearchTerm('')
   }, [isModalOpen])
 
+  const onPaginate = () =>
+    searchQuery.fetchMore({
+      variables: {
+        offset: searchQuery.data?.searchAnime.hits.length,
+      },
+    })
+
   return (
     <>
       <Container
@@ -73,6 +85,7 @@ const Search = () => {
               onSearchTermChange={(v) => setClientSearchTerm(v)}
               searchQuery={searchQuery}
               searchInputRef={searchInputRef}
+              onPaginate={onPaginate}
             />
             <DesktopSearchModal
               onClose={() => setIsModalOpen(false)}
@@ -80,6 +93,7 @@ const Search = () => {
               onSearchTermChange={(v) => setClientSearchTerm(v)}
               searchQuery={searchQuery}
               searchInputRef={searchInputRef}
+              onPaginate={onPaginate}
             />
           </>
         ) : null}

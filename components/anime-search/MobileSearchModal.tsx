@@ -3,7 +3,6 @@ import { isPresent } from 'utils'
 import Link from 'next/link'
 import {
   InputLeftElement,
-  InputRightElement,
   InputGroup,
   Spinner,
   Input,
@@ -14,8 +13,9 @@ import { motion } from 'framer-motion'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 import { OperationVariables, QueryResult } from '@apollo/client'
 import tw, { styled } from 'twin.macro'
-import { HiSearch } from 'react-icons/hi'
+import { HiSearch, HiInbox } from 'react-icons/hi'
 import { TypeBadge, StatusBadge, GenreTag } from 'components/anime'
+import useInfiniteScroll from 'react-infinite-scroll-hook'
 
 type MobileSearchModalProps = {
   onClose: () => void
@@ -28,6 +28,7 @@ type MobileSearchModalProps = {
     OperationVariables
   >
   searchInputRef: React.RefObject<HTMLInputElement>
+  onPaginate: () => void
 }
 
 const MobileSearchModal = ({
@@ -36,8 +37,17 @@ const MobileSearchModal = ({
   onSearchTermChange,
   searchQuery,
   searchInputRef,
+  onPaginate,
 }: MobileSearchModalProps) => {
+  const hasNextPage =
+    searchQuery.data?.searchAnime.hits.length !==
+    searchQuery.data?.searchAnime.nbHits
   const { colorMode } = useColorMode()
+  const [sentryRef] = useInfiniteScroll({
+    loading: searchQuery.loading,
+    hasNextPage,
+    onLoadMore: onPaginate,
+  })
 
   return (
     <Modal
@@ -49,7 +59,9 @@ const MobileSearchModal = ({
     >
       <Scroll
         className={colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'}
-        options={{ scrollbars: { autoHide: 'scroll' } }}
+        options={{
+          scrollbars: { autoHide: 'scroll' },
+        }}
       >
         <ModalContent>
           <SearchInputGroup>
@@ -68,67 +80,79 @@ const MobileSearchModal = ({
               textColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
               borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
             />
-            <InputRightElement pointerEvents="none">
-              {searchQuery.loading ? (
-                <LoadingSearchIcon size="sm" color="green.500" />
-              ) : null}
-            </InputRightElement>
           </SearchInputGroup>
           <List>
-            {searchQuery.data?.searchAnime.filter(isPresent).map((anime) => {
-              if (
-                !isPresent(anime.mainImage) ||
-                !isPresent(anime.mainImageBlurred)
-              )
-                return null
+            {searchQuery.data?.searchAnime.hits
+              .filter(isPresent)
+              .map((anime) => {
+                if (
+                  !isPresent(anime.mainImage) ||
+                  !isPresent(anime.mainImageBlurred)
+                )
+                  return null
 
-              return (
-                <AnimePost key={anime.slug}>
-                  <Link href={`/anime/${anime.slug}`} passHref>
-                    <AnimeCard>
-                      <ImageContainer>
-                        <Image
-                          src={anime.mainImage}
-                          width={56.25}
-                          height={87.5}
-                          layout="fixed"
-                          alt={`${anime?.title} poster.`}
-                          placeholder="blur"
-                          blurDataURL={anime.mainImageBlurred}
-                          priority
-                        />
-                      </ImageContainer>
-                      <Information>
-                        <Title>
-                          <TitleText>{anime?.title}</TitleText>
-                          &nbsp;&nbsp;
-                          <Badges>
-                            {anime?.type ? (
-                              <TypeBadge type={anime.type} />
-                            ) : null}
-                            &nbsp;
-                            {anime?.status ? (
-                              <StatusBadge status={anime.status} />
-                            ) : null}
-                          </Badges>
-                        </Title>
-                        {anime?.genres
-                          ? anime.genres
-                              .filter(isPresent)
-                              .map((genre, index) => (
-                                <GenreTag key={`genre-${index}`}>
-                                  {genre}
-                                </GenreTag>
-                              ))
-                          : null}
-                      </Information>
-                    </AnimeCard>
-                  </Link>
-                  <Divider p={2} />
-                </AnimePost>
-              )
-            })}
+                return (
+                  <AnimePost key={anime.slug}>
+                    <Link href={`/anime/${anime.slug}`} passHref>
+                      <AnimeCard>
+                        <ImageContainer>
+                          <Image
+                            src={anime.mainImage}
+                            width={56.25}
+                            height={87.5}
+                            layout="fixed"
+                            alt={`${anime?.title} poster.`}
+                            placeholder="blur"
+                            blurDataURL={anime.mainImageBlurred}
+                            priority
+                          />
+                        </ImageContainer>
+                        <Information>
+                          <Title>
+                            <TitleText>{anime?.title}</TitleText>
+                            &nbsp;&nbsp;
+                            <Badges>
+                              {anime?.type ? (
+                                <TypeBadge type={anime.type} />
+                              ) : null}
+                              &nbsp;
+                              {anime?.status ? (
+                                <StatusBadge status={anime.status} />
+                              ) : null}
+                            </Badges>
+                          </Title>
+                          {anime?.genres
+                            ? anime.genres
+                                .filter(isPresent)
+                                .map((genre, index) => (
+                                  <GenreTag key={`genre-${index}`}>
+                                    {genre}
+                                  </GenreTag>
+                                ))
+                            : null}
+                        </Information>
+                      </AnimeCard>
+                    </Link>
+                    <Divider p={2} />
+                  </AnimePost>
+                )
+              })}
           </List>
+
+          {/* show empty when no results exist */}
+          {searchQuery.data?.searchAnime.hits.length === 0 ? (
+            <EmptyContainer>
+              <EmptyIcon size="36px" />
+              <p>No results found</p>
+            </EmptyContainer>
+          ) : null}
+
+          {/* show loading icon when paginating more */}
+          {searchQuery.loading || hasNextPage ? (
+            <LoadingPaginationContainer ref={sentryRef}>
+              <Spinner size="lg" color="green.500" />
+            </LoadingPaginationContainer>
+          ) : null}
         </ModalContent>
       </Scroll>
     </Modal>
@@ -157,7 +181,9 @@ const ModalSearchIcon = tw(
   HiSearch,
 )`w-5 h-5 mt-1.5 text-gray-400 dark:text-gray-700`
 
-const LoadingSearchIcon = tw(Spinner)`w-5 h-5 mt-1.5`
+const EmptyContainer = tw.div`flex items-center flex-col opacity-50`
+
+const EmptyIcon = tw(HiInbox)`mb-2`
 
 const List = tw.div`grid grid-cols-1 gap-4 pb-14 w-full`
 
@@ -172,6 +198,8 @@ const Information = tw.div`ml-4 flex-grow`
 const Badges = tw.span``
 
 const Title = tw.div`mb-2 leading-4`
+
+const LoadingPaginationContainer = tw.div`mb-12`
 
 const ImageContainer = styled.div`
   width: 56.25px;
