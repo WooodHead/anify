@@ -20,21 +20,22 @@ export class AnimeEntity extends Document {
   GSI1SK: AnimeTableAttributes | undefined
   GSI2PK: AnimeTableAttributes | undefined
   GSI2SK: AnimeTableAttributes | undefined
-  title!: string | null
-  type!: string | null
+  title!: Maybe<string>
+  type!: Maybe<string>
   genres: Array<string> = []
-  status!: string | null
-  sourceMaterialType!: string | null
-  rating!: string | null
-  episodes!: number | null
-  description!: string | null
-  mainImage!: string | null
-  mainImageBlurred!: string | null
-  season!: string | null
-  airedStart!: string | null
+  status!: Maybe<string>
+  sourceMaterialType!: Maybe<string>
+  rating!: Maybe<string>
+  score!: Maybe<number>
+  episodes!: Maybe<number>
+  description!: Maybe<string>
+  mainImage!: Maybe<string>
+  mainImageBlurred!: Maybe<string>
+  season!: Maybe<string>
+  airedStart!: Maybe<string>
   slug!: string
-  airedEnd!: string | null
-  duration!: string | null
+  airedEnd!: Maybe<string>
+  duration!: Maybe<string>
   producers: Array<string> = []
   licensors: Array<string> = []
   studios: Array<string> = []
@@ -42,10 +43,10 @@ export class AnimeEntity extends Document {
     name: string
     url: string
   }> = []
-  englishTitle!: string | null
+  englishTitle!: Maybe<string>
   createdAt!: number
   updatedAt!: number
-  japaneseTitle!: string | null
+  japaneseTitle!: Maybe<string>
   synonyms: Array<string> = []
 }
 
@@ -194,6 +195,9 @@ export class DynamoDB extends DataSource {
       GSI2SK,
       createdAt,
       updatedAt,
+      toDynamo,
+      conformToSchema,
+      model,
       ...rest
     } = animeEntity
 
