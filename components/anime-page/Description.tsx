@@ -13,26 +13,26 @@ const Description = ({ isLoaded, anime }: DescriptionProps) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] =
     useState<boolean>(false)
 
+  if (!isLoaded) return <DescriptionSkeleton isLoaded={isLoaded} />
+
   return (
     <>
-      <DescriptionSkeleton isLoaded={isLoaded} animation={false}>
-        <p>
-          {(anime?.description
-            ? _.truncate(anime.description, {
-                length: isDescriptionExpanded ? Infinity : 500,
-                // split the description into an array of paragraphs
-              }).split('\n')
-            : ['']
-          )
-            // use line breaks between paragraphs
-            .map((text, index) => (
-              <React.Fragment key={`description-${index}`}>
-                {text}
-                <br />
-              </React.Fragment>
-            ))}
-        </p>
-      </DescriptionSkeleton>
+      <p>
+        {(anime?.description
+          ? _.truncate(anime.description, {
+              length: isDescriptionExpanded ? Infinity : 500,
+              // split the description into an array of paragraphs
+            }).split('\n')
+          : ['']
+        )
+          // use line breaks between paragraphs
+          .map((text, index) => (
+            <React.Fragment key={`description-${index}`}>
+              {text}
+              <br />
+            </React.Fragment>
+          ))}
+      </p>
 
       {!isDescriptionExpanded && isLoaded ? (
         <ExpandControls
