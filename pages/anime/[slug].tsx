@@ -35,7 +35,7 @@ const AnimePage = ({ anime }: AnimePageProps) => {
       }}
       noPadding
       shouldFullyCollapse
-      key={anime.slug}
+      key={anime?.slug}
     >
       <CoverImage
         isLoaded={isLoaded}
