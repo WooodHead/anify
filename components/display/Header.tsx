@@ -43,7 +43,7 @@ const Header = ({ onHamburgerClick }: HeaderTypes) => {
       <Container>
         <HamburgerButton onClick={onHamburgerClick} />
 
-        <Logo size="medium" />
+        <Logo />
 
         <Search />
 
