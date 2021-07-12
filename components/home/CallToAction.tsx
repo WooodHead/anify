@@ -4,6 +4,7 @@ import { Button } from '@chakra-ui/react'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 
 type CallToActionProps = {
+  // we'll get this implicitly from Layout 😎
   scrollBarRef?: React.RefObject<OverlayScrollbarsComponent>
 }
 
