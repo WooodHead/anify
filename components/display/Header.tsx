@@ -90,7 +90,7 @@ const Header = ({ onHamburgerClick }: HeaderTypes) => {
 export default Header
 
 const Container = styled.div`
-  ${tw`relative bg-white dark:bg-black grid py-3 px-6 items-center transition-colors`}
+  ${tw`relative bg-white dark:bg-black grid py-3 px-6 items-center transition-colors shadow-sm dark:shadow-none z-30`}
   grid-template-columns: auto auto 1fr 1fr;
 
   @media (max-width: 768px) {
@@ -100,13 +100,13 @@ const Container = styled.div`
 
 const HamburgerButton = tw(
   HiMenu,
-)`h-6 w-6 mr-7 cursor-pointer hover:text-emerald-500 transition-colors`
+)`h-6 w-6 mr-7 cursor-pointer hover:text-emerald-500 hover:dark:text-emerald-200 transition-colors`
 
 const Settings = tw.div`justify-self-end`
 
 const SettingsButton = tw(
   HiCog,
-)`h-6 w-6 cursor-pointer hover:text-emerald-500 transition-colors`
+)`h-6 w-6 cursor-pointer hover:text-emerald-500 hover:dark:text-emerald-200 transition-colors`
 
 const SettingsMenu = tw(
   motion.div,

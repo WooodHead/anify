@@ -76,7 +76,7 @@ const Container = tw.div`m-auto w-auto hidden md:block`
 const List = tw.div`flex flex-wrap pb-10`
 
 const AnimePost = styled.div`
-  ${tw`cursor-pointer mr-4 mb-8 text-gray-700 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400 transition-colors`}
+  ${tw`cursor-pointer mr-4 mb-8 text-gray-700 dark:text-gray-300 hover:text-emerald-500 hover:dark:text-emerald-200 transition-colors`}
   width: 225px;
 `
 

@@ -73,7 +73,9 @@ const MobileSearchModal = ({
               ref={searchInputRef}
               value={clientSearchTerm}
               onChange={(e) => onSearchTermChange(e.target.value)}
-              focusBorderColor="green.500"
+              focusBorderColor={
+                colorMode === 'dark' ? 'green.200' : 'green.500'
+              }
               variant="flushed"
               textColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
               borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
