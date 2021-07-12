@@ -10,22 +10,6 @@ const theme = extendTheme({
     green: colors.emerald,
     gray: colors.gray,
   },
-
-  baseStyle: {
-    ring: {
-      color: colors.emerald[500],
-    },
-  },
-  components: {
-    Switch: {
-      parts: ['track'],
-      baseStyle: {
-        track: {
-          _checked: { bg: colors.emerald[500] },
-        },
-      },
-    },
-  },
 })
 
 export default theme

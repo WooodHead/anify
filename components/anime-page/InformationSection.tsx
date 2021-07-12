@@ -146,7 +146,7 @@ const Field = tw.p`font-bold text-sm`
 
 const Value = tw.span`text-gray-500 dark:text-gray-400 text-sm`
 
-const ValueLink = tw.a`text-emerald-500 hover:text-emerald-600! dark:text-emerald-400 dark:hover:text-emerald-500! text-sm`
+const ValueLink = tw.a`text-emerald-500 hover:text-emerald-600 dark:text-emerald-200 dark:hover:text-emerald-300 text-sm`
 
 const TagList = tw.div`mt-1 -mb-1 leading-6`
 

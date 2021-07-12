@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import tw, { styled } from 'twin.macro'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 import { useColorMode } from '@chakra-ui/react'
@@ -7,7 +7,7 @@ import SideNavigation from './SideNavigation'
 import SEO, { SEOProps } from './SEO'
 
 type LayoutProps = {
-  children: React.ReactNode
+  children: React.ReactElement[]
   seo: SEOProps
   noPadding?: boolean
   shouldFullyCollapse?: boolean
@@ -19,6 +19,7 @@ const Layout = ({
   noPadding = false,
   shouldFullyCollapse = false,
 }: LayoutProps) => {
+  const scrollBarRef = useRef<OverlayScrollbarsComponent>(null)
   const { colorMode } = useColorMode()
   const [isSideNavigationExpanded, setIsSideNavigationExpanded] =
     useState<boolean>(false)
@@ -47,8 +48,16 @@ const Layout = ({
             }
             $noPadding={noPadding}
             options={{ scrollbars: { autoHide: 'scroll' } }}
+            ref={scrollBarRef}
           >
-            {children}
+            {/* give all children access to the scrollBarRef just incase 🤗 */}
+            {React.Children.map(children, (child) => {
+              return React.cloneElement(
+                child,
+                { scrollBarRef, ...child.props },
+                child.props?.children || null,
+              )
+            })}
           </Content>
         </ContentContainer>
       </Container>
