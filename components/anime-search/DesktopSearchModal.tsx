@@ -54,74 +54,79 @@ const DesktopSearchModal = ({
       transition={{ duration: 0.1 }}
       onClick={onClose}
     >
-      <ModalContent>
-        <SearchInputGroup>
-          <InputLeftElement pointerEvents="none">
-            <ModalSearchIcon />
-          </InputLeftElement>
-          <SearchInput
-            onClick={(e) => e.stopPropagation()}
-            size="lg"
-            placeholder="Search anime"
-            ref={searchInputRef}
-            value={clientSearchTerm}
-            onChange={(e) => onSearchTermChange(e.target.value)}
-            focusBorderColor={colorMode === 'dark' ? 'green.200' : 'green.500'}
-            variant="flushed"
-            textColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
-            borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
-          />
-        </SearchInputGroup>
-        <Grid>
-          {searchQuery.data?.searchAnime.hits
-            .filter(isPresent)
-            .map((anime, idx) => {
-              if (
-                !isPresent(anime.mainImage) ||
-                !isPresent(anime.mainImageBlurred)
-              )
-                return null
+      <Scroll
+        className={colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'}
+        options={{
+          scrollbars: { autoHide: 'scroll' },
+        }}
+      >
+        <ModalContent>
+          <SearchInputGroup>
+            <InputLeftElement pointerEvents="none">
+              <ModalSearchIcon />
+            </InputLeftElement>
+            <SearchInput
+              onClick={(e) => e.stopPropagation()}
+              size="lg"
+              placeholder="Search anime"
+              ref={searchInputRef}
+              value={clientSearchTerm}
+              onChange={(e) => onSearchTermChange(e.target.value)}
+              focusBorderColor={
+                colorMode === 'dark' ? 'green.200' : 'green.500'
+              }
+              variant="flushed"
+              textColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
+              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
+            />
+          </SearchInputGroup>
+          <Grid>
+            {searchQuery.data?.searchAnime.hits
+              .filter(isPresent)
+              .map((anime, idx) => {
+                if (
+                  !isPresent(anime.mainImage) ||
+                  !isPresent(anime.mainImageBlurred)
+                )
+                  return null
 
-              return (
-                <Tooltip
-                  label={<AnimeTooltipLabel anime={anime} />}
-                  placement="right"
-                  key={anime.slug}
-                  hasArrow
-                >
-                  <AnimePost key={`${anime.slug}-${idx}`}>
-                    <Link
-                      href={`/anime/${anime.slug}`}
-                      passHref
-                      key={`${anime.slug}-${idx}`}
-                    >
-                      <AnimePoster
-                        title={anime.title || ''}
-                        mainImage={anime.mainImage}
-                        mainImageBlurred={anime.mainImageBlurred}
-                      />
-                    </Link>
-                  </AnimePost>
-                </Tooltip>
-              )
-            })}
-        </Grid>
+                return (
+                  <Tooltip
+                    key={`${anime.slug}-${idx}`}
+                    label={<AnimeTooltipLabel anime={anime} />}
+                    placement="right"
+                    hasArrow
+                  >
+                    <AnimePost key={`${anime.slug}-${idx}`}>
+                      <Link href={`/anime/${anime.slug}`} passHref>
+                        <AnimePoster
+                          title={anime.title || ''}
+                          mainImage={anime.mainImage}
+                          mainImageBlurred={anime.mainImageBlurred}
+                        />
+                      </Link>
+                    </AnimePost>
+                  </Tooltip>
+                )
+              })}
+          </Grid>
 
-        {/* show empty when no results exist */}
-        {searchQuery.data?.searchAnime.hits.length === 0 ? (
-          <EmptyContainer>
-            <EmptyIcon size="36px" />
-            <p>No results found</p>
-          </EmptyContainer>
-        ) : null}
+          {/* show empty when no results exist */}
+          {searchQuery.data?.searchAnime.hits.length === 0 ? (
+            <EmptyContainer>
+              <EmptyIcon size="36px" />
+              <p>No results found</p>
+            </EmptyContainer>
+          ) : null}
 
-        {/* show loading icon when paginating more */}
-        {searchQuery.loading || searchQuery.data?.searchAnime.hasNextPage ? (
-          <LoadingPaginationContainer ref={sentryRef}>
-            <Spinner />
-          </LoadingPaginationContainer>
-        ) : null}
-      </ModalContent>
+          {/* show loading icon when paginating more */}
+          {searchQuery.loading || searchQuery.data?.searchAnime.hasNextPage ? (
+            <LoadingPaginationContainer ref={sentryRef}>
+              <Spinner />
+            </LoadingPaginationContainer>
+          ) : null}
+        </ModalContent>
+      </Scroll>
     </Modal>
   )
 }
