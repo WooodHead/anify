@@ -19,7 +19,7 @@ const Layout = ({
   noPadding = false,
   shouldFullyCollapse = false,
 }: LayoutProps) => {
-  const scrollBarRef = useRef<OverlayScrollbarsComponent>(null)
+  const scrollBaRef = useRef<OverlayScrollbarsComponent>(null)
   const { colorMode } = useColorMode()
   const [isSideNavigationExpanded, setIsSideNavigationExpanded] =
     useState<boolean>(false)
@@ -52,7 +52,7 @@ const Layout = ({
             {React.Children.map(children, (child) => {
               return React.cloneElement(
                 child,
-                { scrollBarRef, ...child.props },
+                { ...child.props },
                 child.props?.children || null,
               )
             })}
