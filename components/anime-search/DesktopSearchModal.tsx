@@ -83,7 +83,7 @@ const DesktopSearchModal = ({
           <Grid>
             {searchQuery.data?.searchAnime.hits
               .filter(isPresent)
-              .map((anime) => {
+              .map((anime, idx) => {
                 if (
                   !isPresent(anime.mainImage) ||
                   !isPresent(anime.mainImageBlurred)
@@ -97,8 +97,12 @@ const DesktopSearchModal = ({
                     key={anime.slug}
                     hasArrow
                   >
-                    <AnimePost>
-                      <Link href={`/anime/${anime.slug}`} passHref>
+                    <AnimePost key={`${anime.slug}-${idx}`}>
+                      <Link
+                        href={`/anime/${anime.slug}`}
+                        passHref
+                        key={`${anime.slug}-${idx}`}
+                      >
                         <AnimePoster
                           title={anime.title || ''}
                           mainImage={anime.mainImage}
