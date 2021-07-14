@@ -9,16 +9,20 @@ const Logo = () => {
   return (
     <Container>
       <Link href="/" passHref>
-        <Image
-          src={
-            colorMode === 'dark' ? '/img/logo-dark.svg' : '/img/logo-light.svg'
-          }
-          alt=""
-          layout="fixed"
-          width={100.8} // 144px
-          height={30.8} // 44px
-          priority
-        />
+        <Ref>
+          <Image
+            src={
+              colorMode === 'dark'
+                ? '/img/logo-dark.svg'
+                : '/img/logo-light.svg'
+            }
+            alt=""
+            layout="fixed"
+            width={100.8} // 144px
+            height={30.8} // 44px
+            priority
+          />
+        </Ref>
       </Link>
     </Container>
   )
@@ -27,3 +31,5 @@ const Logo = () => {
 export default Logo
 
 const Container = tw.span`inline-flex items-center cursor-pointer`
+
+const Ref = tw.span`flex items-center`

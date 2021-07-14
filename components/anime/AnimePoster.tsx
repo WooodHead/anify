@@ -9,14 +9,12 @@ type AnimePosterProps = {
   onClick?: () => void
 }
 
-const AnimePoster = ({
-  mainImage,
-  title,
-  mainImageBlurred,
-  onClick,
-}: AnimePosterProps) => {
+const WrappedAnimePoster = forwardRef(function AnimePoster(
+  { mainImage, title, mainImageBlurred, onClick }: AnimePosterProps,
+  ref: ForwardedRef<HTMLDivElement>,
+) {
   return (
-    <AnimeImage onClick={onClick}>
+    <AnimeImage onClick={onClick} ref={ref}>
       <Image
         src={mainImage}
         width={225}
@@ -29,9 +27,9 @@ const AnimePoster = ({
       />
     </AnimeImage>
   )
-}
+})
 
-export default AnimePoster
+export default WrappedAnimePoster
 
 const AnimeImage = styled.div`
   ${tw`rounded-lg shadow-lg dark:shadow-none overflow-hidden`}

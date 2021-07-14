@@ -7,7 +7,7 @@ import SideNavigation from './SideNavigation'
 import SEO, { SEOProps } from './SEO'
 
 type LayoutProps = {
-  children: React.ReactElement[]
+  children: React.ReactElement | React.ReactElement[]
   seo: SEOProps
   noPadding?: boolean
   shouldFullyCollapse?: boolean
@@ -42,7 +42,8 @@ const Layout = ({
             shouldFullyCollapse={shouldFullyCollapse}
             currentPath={seo.url}
           />
-          <Content
+
+          <OverlayScrollbar
             className={
               colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'
             }
@@ -58,7 +59,7 @@ const Layout = ({
                 child.props?.children || null,
               )
             })}
-          </Content>
+          </OverlayScrollbar>
         </ContentContainer>
       </Container>
     </>
@@ -71,7 +72,9 @@ const Container = tw.div`flex flex-col h-screen overflow-hidden`
 
 const ContentContainer = tw.div`relative flex flex-grow`
 
-const Content = styled(OverlayScrollbarsComponent)<{ $noPadding: boolean }>`
+const OverlayScrollbar = styled(OverlayScrollbarsComponent)<{
+  $noPadding: boolean
+}>`
   ${({ $noPadding }) => [
     tw`relative h-full flex-grow bg-gray-50 dark:bg-gray-900 transition-colors overflow-hidden w-screen`,
     !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`,
