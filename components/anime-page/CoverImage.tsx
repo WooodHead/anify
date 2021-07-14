@@ -26,6 +26,7 @@ const CoverImage = ({
             placeholder="blur"
             blurDataURL={mainImageBlurred}
             priority
+            unoptimized
           />
         ) : null}
       </LoadingSkeleton>
