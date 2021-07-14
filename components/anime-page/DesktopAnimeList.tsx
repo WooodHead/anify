@@ -80,7 +80,7 @@ const AnimePost = styled.div`
   width: 225px;
 `
 
-const LoadingPaginationContainer = tw.div`text-center mb-14 mt-12`
+const LoadingPaginationContainer = tw.div`text-center pb-14 mt-12`
 
 const SectionHeader = tw.h2`text-xl mb-4 font-semibold`
 

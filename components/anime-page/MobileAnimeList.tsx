@@ -108,7 +108,7 @@ const Badges = tw.div``
 
 const Title = tw.h2`leading-5! align-middle`
 
-const LoadingPaginationContainer = tw.div`text-center mb-12 mt-12`
+const LoadingPaginationContainer = tw.div`text-center pb-12 mt-12`
 
 const Score = tw.div`flex items-center`
 

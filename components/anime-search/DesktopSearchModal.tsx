@@ -157,7 +157,7 @@ const EmptyContainer = tw.div`flex items-center flex-col opacity-50`
 
 const EmptyIcon = tw(HiInbox)`mb-2`
 
-const LoadingPaginationContainer = tw.div`mb-7 mt-10`
+const LoadingPaginationContainer = tw.div`pb-7 mt-10`
 
 const Grid = tw.div`grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8`
 
