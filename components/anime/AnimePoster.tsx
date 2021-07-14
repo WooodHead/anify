@@ -24,6 +24,7 @@ const WrappedAnimePoster = forwardRef(function AnimePoster(
         placeholder="blur"
         blurDataURL={mainImageBlurred}
         priority
+        unoptimized
       />
     </AnimeImage>
   )
