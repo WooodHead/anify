@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import tw, { styled } from 'twin.macro'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 import { useColorMode } from '@chakra-ui/react'
@@ -23,6 +23,9 @@ const Layout = ({
   const { colorMode } = useColorMode()
   const [isSideNavigationExpanded, setIsSideNavigationExpanded] =
     useState<boolean>(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
 
   return (
     <>
@@ -43,23 +46,26 @@ const Layout = ({
             currentPath={seo.url}
           />
 
-          <OverlayScrollbar
-            className={
-              colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'
-            }
-            $noPadding={noPadding}
-            options={{ scrollbars: { autoHide: 'scroll' } }}
-            ref={scrollBarRef}
-          >
-            {/* give all children access to the scrollBarRef just incase 🤗 */}
-            {React.Children.map(children, (child) => {
-              return React.cloneElement(
-                child,
-                { scrollBarRef, ...child.props },
-                child.props?.children || null,
-              )
-            })}
-          </OverlayScrollbar>
+          {/* don't render any client-dependent state until actually mounted on the client */}
+          {mounted ? (
+            <OverlayScrollbar
+              className={
+                colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'
+              }
+              $noPadding={noPadding}
+              options={{ scrollbars: { autoHide: 'scroll' } }}
+              ref={scrollBarRef}
+            >
+              {/* give all children access to the scrollBarRef just incase 🤗 */}
+              {React.Children.map(children, (child) => {
+                return React.cloneElement(
+                  child,
+                  { scrollBarRef, ...child.props },
+                  child.props?.children || null,
+                )
+              })}
+            </OverlayScrollbar>
+          ) : null}
         </ContentContainer>
       </Container>
     </>
