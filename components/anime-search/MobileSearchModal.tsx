@@ -1,13 +1,7 @@
 import Image from 'next/image'
 import { isPresent } from 'utils'
 import Link from 'next/link'
-import {
-  InputLeftElement,
-  InputGroup,
-  Input,
-  useColorMode,
-  Divider,
-} from '@chakra-ui/react'
+import { InputLeftElement, InputGroup, Input, Divider } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 import { OperationVariables, QueryResult } from '@apollo/client'
@@ -17,6 +11,7 @@ import { TypeBadge, StatusBadge, GenreTag } from 'components/anime'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { HiStar } from 'react-icons/hi'
 import { Spinner } from 'elements'
+import { useTheme } from 'next-themes'
 
 type MobileSearchModalProps = {
   onClose: () => void
@@ -40,7 +35,7 @@ const MobileSearchModal = ({
   searchInputRef,
   onPaginate,
 }: MobileSearchModalProps) => {
-  const { colorMode } = useColorMode()
+  const { resolvedTheme } = useTheme()
   const [sentryRef] = useInfiniteScroll({
     loading: searchQuery.loading,
     hasNextPage: searchQuery.data?.searchAnime.hasNextPage || false,
@@ -56,7 +51,9 @@ const MobileSearchModal = ({
       onClick={onClose}
     >
       <Scroll
-        className={colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'}
+        className={
+          resolvedTheme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
+        }
         options={{
           scrollbars: { autoHide: 'scroll' },
         }}
@@ -74,11 +71,11 @@ const MobileSearchModal = ({
               value={clientSearchTerm}
               onChange={(e) => onSearchTermChange(e.target.value)}
               focusBorderColor={
-                colorMode === 'dark' ? 'green.200' : 'green.500'
+                resolvedTheme === 'dark' ? 'green.200' : 'green.500'
               }
               variant="flushed"
-              textColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
-              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
+              textColor={resolvedTheme === 'dark' ? 'gray.700' : 'gray.400'}
+              borderColor={resolvedTheme === 'dark' ? 'gray.700' : 'gray.400'}
             />
           </SearchInputGroup>
           <List>

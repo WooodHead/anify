@@ -1,18 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useColorMode } from '@chakra-ui/react'
 import tw from 'twin.macro'
 
-const Logo = () => {
-  const { colorMode } = useColorMode()
+type LogoProps = {
+  resolvedTheme?: string
+}
 
+const Logo = ({ resolvedTheme }: LogoProps) => {
   return (
     <Container>
       <Link href="/" passHref>
         <Ref>
           <Image
             src={
-              colorMode === 'dark'
+              resolvedTheme === 'dark'
                 ? '/img/logo-dark.svg'
                 : '/img/logo-light.svg'
             }

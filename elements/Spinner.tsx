@@ -1,13 +1,14 @@
-import { Spinner as ChakraSpinner, useColorMode } from '@chakra-ui/react'
+import { Spinner as ChakraSpinner } from '@chakra-ui/react'
+import { useTheme } from 'next-themes'
 
 const Spinner = () => {
-  const { colorMode } = useColorMode()
+  const { resolvedTheme } = useTheme()
 
   return (
     <ChakraSpinner
       size="lg"
       color={
-        colorMode === 'dark'
+        resolvedTheme === 'dark'
           ? 'var(--primary-color-dark)'
           : 'var(--primary-color)'
       }

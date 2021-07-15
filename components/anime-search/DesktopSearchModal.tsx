@@ -1,13 +1,7 @@
 import { isPresent } from 'utils'
 import { AnimeTooltipLabel } from 'components/anime-search'
 import Link from 'next/link'
-import {
-  Tooltip,
-  InputLeftElement,
-  InputGroup,
-  Input,
-  useColorMode,
-} from '@chakra-ui/react'
+import { Tooltip, InputLeftElement, InputGroup, Input } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 import { OperationVariables, QueryResult } from '@apollo/client'
@@ -16,6 +10,7 @@ import { HiSearch, HiInbox } from 'react-icons/hi'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
 import { AnimePoster } from 'components/anime'
 import { Spinner } from 'elements'
+import { useTheme } from 'next-themes'
 
 type DesktopSearchModalProps = {
   onClose: () => void
@@ -39,7 +34,7 @@ const DesktopSearchModal = ({
   searchInputRef,
   onPaginate,
 }: DesktopSearchModalProps) => {
-  const { colorMode } = useColorMode()
+  const { resolvedTheme } = useTheme()
   const [sentryRef] = useInfiniteScroll({
     loading: searchQuery.loading,
     hasNextPage: searchQuery.data?.searchAnime.hasNextPage || false,
@@ -55,7 +50,9 @@ const DesktopSearchModal = ({
       onClick={onClose}
     >
       <Scroll
-        className={colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'}
+        className={
+          resolvedTheme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
+        }
         options={{
           scrollbars: { autoHide: 'scroll' },
         }}
@@ -73,11 +70,11 @@ const DesktopSearchModal = ({
               value={clientSearchTerm}
               onChange={(e) => onSearchTermChange(e.target.value)}
               focusBorderColor={
-                colorMode === 'dark' ? 'green.200' : 'green.500'
+                resolvedTheme === 'dark' ? 'green.200' : 'green.500'
               }
               variant="flushed"
-              textColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
-              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.400'}
+              textColor={resolvedTheme === 'dark' ? 'gray.700' : 'gray.400'}
+              borderColor={resolvedTheme === 'dark' ? 'gray.700' : 'gray.400'}
             />
           </SearchInputGroup>
           <Grid>

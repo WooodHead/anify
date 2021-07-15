@@ -43,7 +43,10 @@ const Header = ({ onHamburgerClick }: HeaderTypes) => {
       <Container>
         <HamburgerButton onClick={onHamburgerClick} />
 
-        <Logo />
+        {/* wait to render this on the client to prevent undefined theme */}
+        {typeof window === 'undefined' ? null : (
+          <Logo resolvedTheme={resolvedTheme} />
+        )}
 
         <Search />
 
