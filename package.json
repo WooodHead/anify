@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "npm run codegen && next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "codegen": "graphql-codegen --config codegen.yml",
@@ -57,6 +58,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
+    "next-sitemap": "^1.6.140",
     "postcss": "^8.3.5",
     "prettier": "^2.3.1",
     "react-is": "^17.0.2",
