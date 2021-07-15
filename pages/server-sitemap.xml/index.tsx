@@ -3,8 +3,6 @@ import { GetServerSideProps } from 'next'
 import { DynamoDB } from 'services/dynamodb'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  // Method to source urls from cms
-  // const urls = await fetch('https//example.com/api')
   const dynamo = new DynamoDB()
 
   const animes = await dynamo.getAllAnime({
