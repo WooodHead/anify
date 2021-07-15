@@ -1,5 +1,5 @@
 import { isPresent } from 'utils'
-import { Tooltip, useColorMode } from '@chakra-ui/react'
+import { Tooltip } from '@chakra-ui/react'
 import Link from 'next/link'
 import { AnimeTooltipLabel } from 'components/anime-search'
 import tw, { styled } from 'twin.macro'

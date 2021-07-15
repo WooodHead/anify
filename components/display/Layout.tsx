@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import tw, { styled } from 'twin.macro'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
-import { useColorMode } from '@chakra-ui/react'
+import { useTheme } from 'next-themes'
 import Header from './Header'
 import SideNavigation from './SideNavigation'
 import SEO, { SEOProps } from './SEO'
@@ -20,7 +20,7 @@ const Layout = ({
   shouldFullyCollapse = false,
 }: LayoutProps) => {
   const scrollBarRef = useRef<OverlayScrollbarsComponent>(null)
-  const { colorMode } = useColorMode()
+  const { resolvedTheme } = useTheme()
   const [isSideNavigationExpanded, setIsSideNavigationExpanded] =
     useState<boolean>(false)
   const [mounted, setMounted] = useState(false)
@@ -50,7 +50,7 @@ const Layout = ({
           {mounted ? (
             <OverlayScrollbar
               className={
-                colorMode === 'dark' ? 'os-theme-light' : 'os-theme-dark'
+                resolvedTheme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
               }
               $noPadding={noPadding}
               options={{ scrollbars: { autoHide: 'scroll' } }}
