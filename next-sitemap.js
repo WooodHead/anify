@@ -4,6 +4,6 @@ module.exports = {
   sitemapSize: 7000,
   exclude: ['/server-sitemap.xml'],
   robotsTxtOptions: {
-    additionalSitemaps: ['http://anify.app/server-sitemap.xml'],
+    additionalSitemaps: ['https://anify.app/server-sitemap.xml'],
   },
 }
