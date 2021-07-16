@@ -49,7 +49,10 @@ const Header = ({
       <Container>
         <HamburgerButton onClick={onHamburgerClick} />
 
-        <Logo resolvedTheme={resolvedTheme} mounted={mounted} />
+        {/* wait to render this on the client to prevent undefined theme */}
+        {typeof window === 'undefined' ? null : (
+          <Logo resolvedTheme={resolvedTheme} />
+        )}
 
         <Search
           isSearchModalOpen={isSearchModalOpen}

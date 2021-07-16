@@ -20,8 +20,9 @@ const CoverImage = ({
         {mainImage && mainImageBlurred ? (
           <Image
             src={mainImage}
-            layout="fill"
-            objectFit="cover"
+            width={225}
+            height={350}
+            layout="fixed"
             alt=""
             placeholder="blur"
             blurDataURL={mainImageBlurred}
@@ -38,9 +39,15 @@ export default CoverImage
 
 const Container = tw.div`relative h-80! md:h-52! overflow-hidden`
 
-const LoadingSkeleton = tw(
-  Skeleton,
-)`h-80! md:h-52! min-h-0! m-0! filter blur-3xl`
+const LoadingSkeleton = styled(Skeleton)`
+  ${tw`flex items-center justify-center h-80! md:h-52! min-h-0! m-0! filter blur-3xl w-screen`}
+
+  div {
+    width: 150vw !important;
+    height: 800% !important;
+    ${tw`flex-shrink-0`}
+  }
+`
 
 const Noise = styled.div`
   ${tw`absolute top-0 left-0 w-full h-full opacity-40`}

@@ -36,7 +36,6 @@ const Description = ({ isLoaded, anime }: DescriptionProps) => {
 
       {!isDescriptionExpanded && isLoaded ? (
         <ExpandControls
-          initial={{ opacity: 0 }}
           whileHover={{ opacity: isDescriptionExpanded ? 0 : 1 }}
           transition={{ duration: 0.1 }}
         >
@@ -58,6 +57,6 @@ const DescriptionSkeleton = styled(Skeleton)<{ isLoaded: boolean }>`
 
 const ExpandControls = tw(
   motion.div,
-)`absolute flex justify-center items-end bottom-0 left-0 w-full`
+)`absolute flex justify-center items-end bottom-0 left-0 w-full opacity-100 md:opacity-0`
 
 const ExpandText = tw.p`font-bold text-gray-600 dark:text-gray-300 bg-gradient-to-t from-gray-50 dark:from-gray-900 h-32 md:h-16 p-2 w-full text-center flex items-end justify-center cursor-pointer`
