@@ -99,7 +99,8 @@ const Header = ({
 export default Header
 
 const Container = styled.div`
-  ${tw`relative bg-white dark:bg-black grid py-3 px-6 items-center transition-colors shadow-sm dark:shadow-none z-30`}
+  ${tw`relative bg-white dark:bg-black grid my-auto px-6 items-center transition-colors shadow-sm dark:shadow-none z-30`}
+  height: 50px;
   grid-template-columns: auto auto 1fr 1fr;
 
   @media (max-width: 768px) {
@@ -119,7 +120,7 @@ const SettingsButton = tw(
 
 const SettingsMenu = tw(
   motion.div,
-)`absolute z-30 top-full right-0 bg-white dark:bg-gray-800 py-2 shadow-lg transition-colors`
+)`absolute z-50 top-full right-0 bg-white dark:bg-gray-800 py-2 shadow-lg transition-colors`
 
 const SettingsMenuItem = tw.div`flex justify-between items-center py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer select-none transition-colors`
 

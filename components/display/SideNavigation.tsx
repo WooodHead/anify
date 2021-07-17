@@ -22,7 +22,7 @@ const SideNavigation = ({
 
   const isMobile = width < 768
   const collapsedWidth = isMobile || shouldFullyCollapse ? 0 : 70
-  const expandedWidth = isMobile ? '90%' : 300
+  const expandedWidth = isMobile ? '70%' : 300
 
   return (
     <>
@@ -121,9 +121,10 @@ const SideNavigation = ({
 
 export default SideNavigation
 
-const Container = tw(
-  motion.div,
-)`bg-white dark:bg-black absolute top-0 left-0 h-full z-30 transition-all overflow-hidden md:overflow-visible`
+const Container = styled(motion.div)`
+  ${tw`bg-white dark:bg-black fixed left-0 h-full z-30 transition-all overflow-hidden md:overflow-visible`}
+  top: 50px;
+`
 
 const Navigation = tw.nav`overflow-hidden`
 
