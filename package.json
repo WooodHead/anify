@@ -23,6 +23,7 @@
     "apollo-datasource": "^0.9.0",
     "apollo-server-micro": "^2.25.1",
     "date-fns": "^2.22.1",
+    "detect-browser": "^5.2.0",
     "dotenv-load": "^2.0.0",
     "dynamoose": "^2.7.3",
     "framer-motion": "^4.1.17",
