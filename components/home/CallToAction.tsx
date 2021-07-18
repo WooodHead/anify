@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import tw from 'twin.macro'
 import { Button } from '@chakra-ui/react'
+import { detect } from 'detect-browser'
 
 type CallToActionProps = {
   homeDividerRef: React.RefObject<HTMLHRElement>
 }
 
 const CallToAction = ({ homeDividerRef }: CallToActionProps) => {
+  const browserName = useMemo(() => {
+    return detect()?.name
+  }, [])
+
   return (
     <Container>
       <Content>
@@ -23,8 +28,13 @@ const CallToAction = ({ homeDividerRef }: CallToActionProps) => {
             colorScheme="green"
             isFullWidth
             onClick={() => {
+              // smooth scroll only works correctly on firefox :(
               if (homeDividerRef.current)
-                homeDividerRef.current.scrollIntoView({ behavior: 'smooth' })
+                homeDividerRef.current.scrollIntoView({
+                  behavior: browserName === 'firefox' ? 'smooth' : 'auto',
+                  block: 'start',
+                  inline: 'nearest',
+                })
             }}
           >
             Explore
