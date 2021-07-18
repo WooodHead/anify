@@ -81,14 +81,3 @@ const GenreSkeleton = styled(Skeleton)`
   ${tw`mt-3 mb-2 md:mt-0 text-center md:text-left`}
   ${({ isLoaded }) => (isLoaded ? tw`h-auto` : tw`h-6`)}
 `
-
-const DescriptionSkeleton = styled(Skeleton)<{ isLoaded: boolean }>`
-  ${tw`text-gray-700 dark:text-gray-300`}
-  ${({ isLoaded }) => (isLoaded ? tw`h-auto` : tw`h-28`)}
-`
-
-const ExpandControls = tw(
-  motion.div,
-)`absolute flex justify-center items-end bottom-0 left-0 w-full`
-
-const ExpandText = tw.p`font-bold text-gray-600 dark:text-gray-300 bg-gradient-to-t from-gray-50 dark:from-gray-900 h-32 md:h-16 p-2 w-full text-center flex items-end justify-center cursor-pointer`

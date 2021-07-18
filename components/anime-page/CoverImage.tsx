@@ -37,7 +37,7 @@ const CoverImage = ({
 
 export default CoverImage
 
-const Container = tw.div`relative h-80! md:h-52! overflow-hidden`
+const Container = tw.div`relative h-80! md:h-52! overflow-hidden z-10`
 
 const LoadingSkeleton = styled(Skeleton)`
   ${tw`flex items-center justify-center h-80! md:h-52! min-h-0! m-0! filter blur-3xl w-screen`}
