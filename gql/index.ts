@@ -6,6 +6,7 @@ export const SEARCH_ANIME = gql`
       hits {
         slug
         title
+        englishTitle
         mainImage
         type
         status
