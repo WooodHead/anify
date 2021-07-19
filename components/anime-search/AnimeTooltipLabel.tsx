@@ -10,7 +10,7 @@ type AnimeTooltipLabelProps = {
 const AnimeTooltipLabel = ({ anime }: AnimeTooltipLabelProps) => {
   return (
     <Container>
-      <Title>{anime.title}</Title>
+      <Title>{anime.englishTitle || anime.title}</Title>
       {anime.type ? <TypeBadge type={anime.type} /> : null}
       &nbsp;
       {anime.status ? <StatusBadge status={anime.status} /> : null}

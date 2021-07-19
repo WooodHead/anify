@@ -47,12 +47,12 @@ const DesktopAnimeList = ({ searchQuery }: DesktopAnimeListProps) => {
               <AnimePost>
                 <Link href={`/anime/${anime.slug}`} passHref>
                   <AnimePoster
-                    title={anime.title || ''}
+                    title={anime.englishTitle || anime.title || ''}
                     mainImage={anime.mainImage}
                     mainImageBlurred={anime.mainImageBlurred}
                   />
                 </Link>
-                <AnimeTitle>{anime.title}</AnimeTitle>
+                <AnimeTitle>{anime.englishTitle || anime.title}</AnimeTitle>
               </AnimePost>
             </Tooltip>
           )

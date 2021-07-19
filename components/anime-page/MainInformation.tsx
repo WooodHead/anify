@@ -24,7 +24,7 @@ const MainInformation = ({ isLoaded, anime }: MainInformationProps) => {
       >
         {anime?.title && anime?.mainImage && anime?.mainImageBlurred ? (
           <AnimePoster
-            title={anime.title}
+            title={anime.englishTitle || anime.title}
             mainImage={anime.mainImage}
             mainImageBlurred={anime.mainImageBlurred}
           />
@@ -33,7 +33,7 @@ const MainInformation = ({ isLoaded, anime }: MainInformationProps) => {
 
       <TitleDescriptionContainer>
         <TitleSkeleton isLoaded={isLoaded}>
-          <Title>{anime?.title}</Title>
+          <Title>{anime?.englishTitle || anime?.title}</Title>
           &nbsp;&nbsp;
           <Genres>
             {anime?.type ? <TypeBadge type={anime.type} /> : null}

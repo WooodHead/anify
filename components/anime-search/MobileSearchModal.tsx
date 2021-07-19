@@ -89,14 +89,16 @@ const MobileSearchModal = ({
                             width={56.25}
                             height={87.5}
                             layout="fixed"
-                            alt={`${anime?.title} poster.`}
+                            alt={`${
+                              anime.englishTitle || anime?.title
+                            } poster.`}
                             placeholder="blur"
                             blurDataURL={anime.mainImageBlurred}
                             unoptimized
                           />
                         </ImageContainer>
                         <Information>
-                          <Title>{anime?.title}</Title>
+                          <Title>{anime.englishTitle || anime?.title}</Title>
 
                           <Badges>
                             {anime?.type ? (

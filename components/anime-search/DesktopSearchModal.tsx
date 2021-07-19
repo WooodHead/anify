@@ -95,7 +95,7 @@ const DesktopSearchModal = ({
                     <AnimePost>
                       <Link href={`/anime/${anime.slug}`} passHref>
                         <AnimePoster
-                          title={anime.title || ''}
+                          title={anime.englishTitle || anime.title || ''}
                           mainImage={anime.mainImage}
                           mainImageBlurred={anime.mainImageBlurred}
                         />
