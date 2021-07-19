@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import tw, { styled } from 'twin.macro'
-import { HiMenu, HiCog } from 'react-icons/hi'
-import { Switch, useColorMode } from '@chakra-ui/react'
+import { HiMenu, HiSun, HiMoon } from 'react-icons/hi'
+import { useColorMode } from '@chakra-ui/react'
 import { useTheme } from 'next-themes'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useClickAway } from 'react-use'
 import Logo from './Logo'
 import { Search } from 'components/anime-search'
@@ -19,16 +18,9 @@ const Header = ({
   isSearchModalOpen,
   onSearchModalOpen,
 }: HeaderTypes) => {
-  const settingsMenuRef = useRef(null)
   const [mounted, setMounted] = useState(typeof document !== 'undefined')
-  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
   const { colorMode, toggleColorMode } = useColorMode()
-
-  // close settings menu if clicked outside
-  useClickAway(settingsMenuRef, () => {
-    setIsSettingsMenuOpen(false)
-  })
 
   // don't render dependent theme UI until mounted on the client
   useEffect(() => setMounted(true), [])
@@ -38,7 +30,7 @@ const Header = ({
     if (resolvedTheme !== colorMode) toggleColorMode()
   }, [colorMode, resolvedTheme, toggleColorMode])
 
-  const toggleDarkMode = (e: React.MouseEvent<HTMLDivElement>) => {
+  const toggleDarkMode = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()
     setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
     toggleColorMode()
@@ -56,41 +48,14 @@ const Header = ({
           onSearchModalOpen={onSearchModalOpen}
         />
 
-        <Settings ref={settingsMenuRef}>
-          <SettingsButton
-            onClick={() => setIsSettingsMenuOpen(!isSettingsMenuOpen)}
-          />
-
-          <AnimatePresence>
-            {isSettingsMenuOpen ? (
-              <SettingsMenu
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                transition={{
-                  duration: 0.1,
-                }}
-              >
-                <SettingsMenuItem onMouseDown={toggleDarkMode}>
-                  <SettingsMenuText>Dark Mode</SettingsMenuText>
-                  {mounted ? (
-                    <Switch
-                      isChecked={resolvedTheme === 'dark'}
-                      colorScheme="green"
-                      size="sm"
-                    />
-                  ) : null}
-                </SettingsMenuItem>
-              </SettingsMenu>
-            ) : null}
-          </AnimatePresence>
-        </Settings>
+        {/* wait until the component is mounted, then show the color mode toggle */}
+        {!mounted ? (
+          <div />
+        ) : resolvedTheme === 'dark' ? (
+          <DarkModeIcon onClick={toggleDarkMode} />
+        ) : (
+          <LightModeIcon onClick={toggleDarkMode} />
+        )}
       </Container>
     </>
   )
@@ -99,7 +64,7 @@ const Header = ({
 export default Header
 
 const Container = styled.div`
-  ${tw`relative bg-white dark:bg-black grid my-auto px-6 items-center transition-colors shadow-sm dark:shadow-none z-30`}
+  ${tw`relative bg-white dark:bg-black grid px-6 items-center transition-colors shadow-sm dark:shadow-none z-30`}
   height: 50px;
   grid-template-columns: auto auto 1fr 1fr;
 
@@ -112,16 +77,16 @@ const HamburgerButton = tw(
   HiMenu,
 )`h-6 w-6 mr-7 cursor-pointer hover:color[var(--primary-color)] dark:hover:color[var(--primary-color-dark)] transition-colors`
 
-const Settings = tw.div`justify-self-end`
+const DarkModeIcon = styled(HiMoon)`
+  ${tw`justify-self-end inline-flex items-center w-5 h-full cursor-pointer select-none`}
 
-const SettingsButton = tw(
-  HiCog,
-)`h-6 w-6 cursor-pointer hover:color[var(--primary-color)] dark:hover:color[var(--primary-color-dark)] transition-colors`
+  /* set the height of our grid content here to ensure the header stays 50px */
+  height: 50px;
+`
 
-const SettingsMenu = tw(
-  motion.div,
-)`absolute z-50 top-full right-0 bg-white dark:bg-gray-800 py-2 shadow-lg transition-colors`
+const LightModeIcon = styled(HiSun)`
+  ${tw`justify-self-end inline-flex items-center w-5 h-full cursor-pointer select-none`}
 
-const SettingsMenuItem = tw.div`flex justify-between items-center py-2 px-8 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer select-none transition-colors`
-
-const SettingsMenuText = tw.p`mr-6`
+  /* set the height of our grid content here to ensure the header stays 50px */
+  height: 50px;
+`

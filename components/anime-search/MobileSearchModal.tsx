@@ -149,7 +149,7 @@ export default MobileSearchModal
 
 const Modal = tw(
   motion.div,
-)`absolute block md:hidden top-0 left-0 bg-white dark:bg-black bg-opacity-100! z-40`
+)`absolute block md:hidden top-0 left-0 bg-white dark:bg-black bg-opacity-100! z-50`
 
 // Div100vh library required to have correct behavior on mobile safari
 const Scroll = tw(Div100vh)`pt-20 px-8 w-screen overflow-y-auto`
