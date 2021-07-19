@@ -132,7 +132,7 @@ export default DesktopSearchModal
 
 const Modal = tw(
   motion.div,
-)`absolute hidden md:block top-0 left-0 bg-white dark:bg-black bg-opacity-90! z-40`
+)`absolute hidden md:block top-0 left-0 bg-white dark:bg-black bg-opacity-90! z-50`
 
 const Scroll = tw(
   OverlayScrollbarsComponent,

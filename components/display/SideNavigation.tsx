@@ -122,7 +122,7 @@ const SideNavigation = ({
 export default SideNavigation
 
 const Container = styled(motion.div)`
-  ${tw`bg-white dark:bg-black fixed left-0 h-full z-30 transition-all overflow-hidden md:overflow-visible`}
+  ${tw`bg-white dark:bg-black fixed left-0 h-full z-20 transition-all overflow-hidden md:overflow-visible`}
   top: 50px;
 `
 
@@ -152,7 +152,7 @@ const NavigationRouteText = styled(motion.a)``
 
 const Background = tw(
   motion.div,
-)`absolute w-full h-full top-0 left-0 bg-gray-900 z-20`
+)`absolute w-full h-full top-0 left-0 bg-gray-900 z-10`
 
 const Spacer = styled.div`
   ${tw`h-full flex-shrink-0`}
