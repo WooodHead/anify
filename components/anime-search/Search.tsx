@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import tw from 'twin.macro'
 import { HiSearch } from 'react-icons/hi'
 import { Divider } from '@chakra-ui/react'
@@ -37,9 +37,10 @@ const Search = ({ isSearchModalOpen, onSearchModalOpen }: SearchProps) => {
     [clientSearchTerm],
   )
 
-  // reset searchTerm when modal is closed
+  // reset searchTerm when modal state changes
   useEffect(() => {
-    if (!isSearchModalOpen) setClientSearchTerm('')
+    setClientSearchTerm('')
+    setApolloSearchTerm('')
   }, [isSearchModalOpen])
 
   const onPaginate = () =>
