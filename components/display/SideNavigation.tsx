@@ -123,7 +123,7 @@ export default SideNavigation
 
 const Container = styled(motion.div)`
   ${tw`bg-white dark:bg-black fixed left-0 h-full z-20 transition-all overflow-hidden md:overflow-visible`}
-  top: 50px;
+  top: 60px;
 `
 
 const Navigation = tw.nav`overflow-hidden`

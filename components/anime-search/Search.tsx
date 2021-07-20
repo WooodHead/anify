@@ -23,7 +23,7 @@ const Search = ({ isSearchModalOpen, onSearchModalOpen }: SearchProps) => {
       variables: {
         query: apolloSearchTerm,
         page: 0,
-        hitsPerPage: 20,
+        hitsPerPage: 12,
       },
       skip: apolloSearchTerm === '',
     },
@@ -60,26 +60,25 @@ const Search = ({ isSearchModalOpen, onSearchModalOpen }: SearchProps) => {
         <HeaderSearchIcon />
         <SearchButtonText>&nbsp; Search anime</SearchButtonText>
       </Container>
-      <AnimatePresence>
-        {isSearchModalOpen ? (
-          <>
-            <MobileSearchModal
-              onClose={() => onSearchModalOpen(false)}
-              searchTerm={clientSearchTerm}
-              onSearchTermChange={(v) => setClientSearchTerm(v)}
-              searchQuery={searchQuery}
-              onPaginate={onPaginate}
-            />
-            <DesktopSearchModal
-              onClose={() => onSearchModalOpen(false)}
-              searchTerm={clientSearchTerm}
-              onSearchTermChange={(v) => setClientSearchTerm(v)}
-              searchQuery={searchQuery}
-              onPaginate={onPaginate}
-            />
-          </>
-        ) : null}
-      </AnimatePresence>
+
+      {isSearchModalOpen ? (
+        <>
+          <MobileSearchModal
+            onClose={() => onSearchModalOpen(false)}
+            searchTerm={clientSearchTerm}
+            onSearchTermChange={(v) => setClientSearchTerm(v)}
+            searchQuery={searchQuery}
+            onPaginate={onPaginate}
+          />
+          <DesktopSearchModal
+            onClose={() => onSearchModalOpen(false)}
+            searchTerm={clientSearchTerm}
+            onSearchTermChange={(v) => setClientSearchTerm(v)}
+            searchQuery={searchQuery}
+            onPaginate={onPaginate}
+          />
+        </>
+      ) : null}
     </>
   )
 }

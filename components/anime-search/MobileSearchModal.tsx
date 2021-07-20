@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { isPresent } from 'utils'
 import Link from 'next/link'
 import { InputLeftElement, InputGroup, Input, Divider } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
 import { OperationVariables, QueryResult } from '@apollo/client'
 import tw, { styled } from 'twin.macro'
 import { HiSearch, HiInbox } from 'react-icons/hi'
@@ -41,13 +40,7 @@ const MobileSearchModal = ({
   })
 
   return (
-    <Modal
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.1 }}
-      onClick={onClose}
-    >
+    <Modal onClick={onClose}>
       <Scroll>
         <ModalContent>
           <SearchInputGroup>
@@ -147,9 +140,7 @@ const MobileSearchModal = ({
 
 export default MobileSearchModal
 
-const Modal = tw(
-  motion.div,
-)`absolute block md:hidden top-0 left-0 bg-white dark:bg-black bg-opacity-100! z-50`
+const Modal = tw.div`absolute block md:hidden top-0 left-0 bg-white dark:bg-black bg-opacity-100! z-50`
 
 // Div100vh library required to have correct behavior on mobile safari
 const Scroll = tw(Div100vh)`pt-20 px-8 w-screen overflow-y-auto`
