@@ -20,4 +20,103 @@ export const resolvers = {
       { dataSources }: DataSources,
     ) => dataSources.agolia.searchAnime(args),
   },
+
+  AnimeRelations: {
+    sideStory: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.sideStory) return []
+      return Promise.all(
+        parent?.sideStory?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    summary: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.summary) return []
+      return Promise.all(
+        parent?.summary?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    other: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.other) return []
+      return Promise.all(
+        parent?.other?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    alternativeVersion: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.alternativeVersion) return []
+      return Promise.all(
+        parent?.alternativeVersion?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    sequel: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.sequel) return []
+      return Promise.all(
+        parent?.sequel?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    spinOff: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.spinOff) return []
+      return Promise.all(
+        parent?.spinOff?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    alternativeSetting: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.alternativeSetting) return []
+      return Promise.all(
+        parent?.alternativeSetting?.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+    prequel: async (
+      parent: { [key: string]: [string] },
+      _: null,
+      { dataSources }: DataSources,
+    ) => {
+      if (!parent.prequel) return []
+      return Promise.all(
+        parent.prequel.map((title) =>
+          title ? dataSources.dynamodb.getAnime({ slug: title }) : null,
+        ),
+      )
+    },
+  },
 }

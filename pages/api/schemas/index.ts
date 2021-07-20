@@ -10,6 +10,7 @@ export const schema = gql`
     rating: String
     episodes: Int
     mainImage: String
+    relations: AnimeRelations
     mainImageBlurred: String
     season: String
     airedStart: String
@@ -30,6 +31,17 @@ export const schema = gql`
   type Source {
     name: String
     url: String
+  }
+
+  type AnimeRelations {
+    sideStory: [Anime]!
+    summary: [Anime]!
+    other: [Anime]!
+    alternativeVersion: [Anime]!
+    alternativeSetting: [Anime]!
+    sequel: [Anime]!
+    spinOff: [Anime]!
+    prequel: [Anime]!
   }
 
   type Query {

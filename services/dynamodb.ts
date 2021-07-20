@@ -14,6 +14,7 @@ dynamoose.aws.sdk.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
   region: process.env.REGION,
 })
+
 export class AnimeEntity extends Document {
   PK!: AnimeTableAttributes
   SK!: AnimeTableAttributes
@@ -25,6 +26,7 @@ export class AnimeEntity extends Document {
   type!: Maybe<string>
   genres: Array<string> = []
   status!: Maybe<string>
+  relations!: Maybe<AnimeRelations>
   sourceMaterialType!: Maybe<string>
   rating!: Maybe<string>
   score!: Maybe<number>
