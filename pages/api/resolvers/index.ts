@@ -21,7 +21,7 @@ export const resolvers = {
     ) => dataSources.agolia.searchAnime(args),
   },
 
-  AnimeRelation: {
+  AnimeRelations: {
     sideStory: async (
       parent: { [key: string]: [string] },
       _: null,

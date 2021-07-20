@@ -10,7 +10,7 @@ export const schema = gql`
     rating: String
     episodes: Int
     mainImage: String
-    relations: AnimeRelation
+    relations: AnimeRelations
     mainImageBlurred: String
     season: String
     airedStart: String
@@ -33,7 +33,7 @@ export const schema = gql`
     url: String
   }
 
-  type AnimeRelation {
+  type AnimeRelations {
     sideStory: [Anime]!
     summary: [Anime]!
     other: [Anime]!
