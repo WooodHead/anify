@@ -48,7 +48,7 @@ const SearchItem = ({ anime }: SearchItemProps) => {
 
 export default SearchItem
 
-const Container = tw.div`relative overflow-hidden bg-white dark:bg-gray-900 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800`
+const Container = tw.div`relative overflow-hidden bg-white dark:bg-gray-900 rounded-b-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800`
 
 const Absolute = tw.div`absolute z-10 left-8 top-4`
 
