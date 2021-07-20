@@ -25,6 +25,7 @@ export class AnimeEntity extends Document {
   type!: Maybe<string>
   genres: Array<string> = []
   status!: Maybe<string>
+  relations!: Maybe<AnimeRelation>
   sourceMaterialType!: Maybe<string>
   rating!: Maybe<string>
   score!: Maybe<number>
