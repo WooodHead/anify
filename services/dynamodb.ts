@@ -14,6 +14,7 @@ dynamoose.aws.sdk.config.update({
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
   region: process.env.REGION,
 })
+
 export class AnimeEntity extends Document {
   PK!: AnimeTableAttributes
   SK!: AnimeTableAttributes

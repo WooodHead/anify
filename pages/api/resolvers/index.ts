@@ -1,6 +1,5 @@
 import { Agolia } from 'services/agolia'
 import { DynamoDB } from 'services/dynamodb'
-import _ from 'lodash'
 type DataSources = { dataSources: { dynamodb: DynamoDB; agolia: Agolia } }
 
 export const resolvers = {
