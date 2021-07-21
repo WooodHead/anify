@@ -114,10 +114,10 @@ const ModalSearchIcon = tw(
   HiSearch,
 )`w-5 h-5 mt-1.5 text-gray-400 dark:text-gray-700`
 
-const EmptyContainer = tw.div`flex items-center flex-col opacity-50`
+const EmptyContainer = tw.div`flex items-center flex-col opacity-50 text-white`
 
-const EmptyIcon = tw(HiInbox)`mb-2`
+const EmptyIcon = tw(HiInbox)`mb-2 text-white`
 
-const LoadingPaginationContainer = tw.div`pb-7 mt-10`
+const LoadingPaginationContainer = tw.div`mt-10`
 
 const Grid = tw.div`grid grid-cols-1 lg:grid-cols-2 gap-6 w-full xl:w-3/4`
