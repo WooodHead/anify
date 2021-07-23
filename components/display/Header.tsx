@@ -65,7 +65,7 @@ export default Header
 
 const Container = styled.div`
   ${tw`relative bg-white dark:bg-black grid px-6 items-center transition-colors shadow-sm dark:shadow-none z-30`}
-  height: 50px;
+  height: 60px;
   grid-template-columns: auto auto 1fr 1fr;
 
   @media (max-width: 768px) {
@@ -80,13 +80,13 @@ const HamburgerButton = tw(
 const DarkModeIcon = styled(HiMoon)`
   ${tw`justify-self-end inline-flex items-center w-5 h-full cursor-pointer select-none`}
 
-  /* set the height of our grid content here to ensure the header stays 50px */
-  height: 50px;
+  /* set the height of our grid content here to ensure the header stays 60px */
+  height: 60px;
 `
 
 const LightModeIcon = styled(HiSun)`
   ${tw`justify-self-end inline-flex items-center w-5 h-full cursor-pointer select-none`}
 
-  /* set the height of our grid content here to ensure the header stays 50px */
-  height: 50px;
+  /* set the height of our grid content here to ensure the header stays 60px */
+  height: 60px;
 `

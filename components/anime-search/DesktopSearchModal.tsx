@@ -1,16 +1,13 @@
 import { isPresent } from 'utils'
-import { AnimeTooltipLabel } from 'components/anime-search'
-import Link from 'next/link'
-import { Tooltip, InputLeftElement, InputGroup, Input } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
+import { InputLeftElement, InputGroup, Input } from '@chakra-ui/react'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
 import { OperationVariables, QueryResult } from '@apollo/client'
 import tw from 'twin.macro'
 import { HiSearch, HiInbox } from 'react-icons/hi'
 import useInfiniteScroll from 'react-infinite-scroll-hook'
-import { AnimePoster } from 'components/anime'
 import { Spinner } from 'elements'
 import { useTheme } from 'next-themes'
+import SearchItem from './SearchItem'
 
 type DesktopSearchModalProps = {
   onClose: () => void
@@ -40,13 +37,7 @@ const DesktopSearchModal = ({
   })
 
   return (
-    <Modal
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.1 }}
-      onClick={onClose}
-    >
+    <Modal onClick={onClose}>
       <Scroll
         className={
           resolvedTheme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
@@ -79,30 +70,7 @@ const DesktopSearchModal = ({
             {searchQuery.data?.searchAnime.hits
               .filter(isPresent)
               .map((anime) => {
-                if (
-                  !isPresent(anime.mainImage) ||
-                  !isPresent(anime.mainImageBlurred)
-                )
-                  return null
-
-                return (
-                  <Tooltip
-                    label={<AnimeTooltipLabel anime={anime} />}
-                    placement="right"
-                    key={anime.slug}
-                    hasArrow
-                  >
-                    <AnimePost>
-                      <Link href={`/anime/${anime.slug}`} passHref>
-                        <AnimePoster
-                          title={anime.englishTitle || anime.title || ''}
-                          mainImage={anime.mainImage}
-                          mainImageBlurred={anime.mainImageBlurred}
-                        />
-                      </Link>
-                    </AnimePost>
-                  </Tooltip>
-                )
+                return <SearchItem key={anime.slug} anime={anime} />
               })}
           </Grid>
 
@@ -128,32 +96,28 @@ const DesktopSearchModal = ({
 
 export default DesktopSearchModal
 
-const Modal = tw(
-  motion.div,
-)`absolute hidden md:block top-0 left-0 bg-white dark:bg-black bg-opacity-90! z-50`
+const Modal = tw.div`absolute hidden md:block top-0 left-0 bg-black bg-opacity-70! dark:bg-opacity-90! z-50`
 
 const Scroll = tw(
   OverlayScrollbarsComponent,
 )`pt-32 px-8 w-screen h-screen overflow-hidden!`
 
-const ModalContent = tw.div`flex flex-col items-center`
+const ModalContent = tw.div`flex flex-col items-center pb-8`
 
 const SearchInputGroup = tw(InputGroup)`w-full md:w-2/3! xl:w-1/2! `
 
 const SearchInput = tw(
   Input,
-)`text-gray-900! dark:text-white! mb-20 placeholder-gray-800! dark:placeholder-gray-400!`
+)`text-white! dark:text-white! mb-20 placeholder-white! dark:placeholder-gray-400!`
 
 const ModalSearchIcon = tw(
   HiSearch,
 )`w-5 h-5 mt-1.5 text-gray-400 dark:text-gray-700`
 
-const EmptyContainer = tw.div`flex items-center flex-col opacity-50`
+const EmptyContainer = tw.div`flex items-center flex-col opacity-50 text-white`
 
-const EmptyIcon = tw(HiInbox)`mb-2`
+const EmptyIcon = tw(HiInbox)`mb-2 text-white`
 
-const LoadingPaginationContainer = tw.div`pb-7 mt-10`
+const LoadingPaginationContainer = tw.div`mt-10`
 
-const Grid = tw.div`grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8`
-
-const AnimePost = tw.span`cursor-pointer`
+const Grid = tw.div`grid grid-cols-1 lg:grid-cols-2 gap-6 w-full xl:w-3/4`

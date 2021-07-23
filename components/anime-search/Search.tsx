@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
 import tw from 'twin.macro'
 import { HiSearch } from 'react-icons/hi'
 import { Divider } from '@chakra-ui/react'
@@ -23,7 +23,7 @@ const Search = ({ isSearchModalOpen, onSearchModalOpen }: SearchProps) => {
       variables: {
         query: apolloSearchTerm,
         page: 0,
-        hitsPerPage: 20,
+        hitsPerPage: 12,
       },
       skip: apolloSearchTerm === '',
     },
@@ -37,9 +37,10 @@ const Search = ({ isSearchModalOpen, onSearchModalOpen }: SearchProps) => {
     [clientSearchTerm],
   )
 
-  // reset searchTerm when modal is closed
+  // reset searchTerm when modal state changes
   useEffect(() => {
-    if (!isSearchModalOpen) setClientSearchTerm('')
+    setClientSearchTerm('')
+    setApolloSearchTerm('')
   }, [isSearchModalOpen])
 
   const onPaginate = () =>
@@ -60,26 +61,25 @@ const Search = ({ isSearchModalOpen, onSearchModalOpen }: SearchProps) => {
         <HeaderSearchIcon />
         <SearchButtonText>&nbsp; Search anime</SearchButtonText>
       </Container>
-      <AnimatePresence>
-        {isSearchModalOpen ? (
-          <>
-            <MobileSearchModal
-              onClose={() => onSearchModalOpen(false)}
-              searchTerm={clientSearchTerm}
-              onSearchTermChange={(v) => setClientSearchTerm(v)}
-              searchQuery={searchQuery}
-              onPaginate={onPaginate}
-            />
-            <DesktopSearchModal
-              onClose={() => onSearchModalOpen(false)}
-              searchTerm={clientSearchTerm}
-              onSearchTermChange={(v) => setClientSearchTerm(v)}
-              searchQuery={searchQuery}
-              onPaginate={onPaginate}
-            />
-          </>
-        ) : null}
-      </AnimatePresence>
+
+      {isSearchModalOpen ? (
+        <>
+          <MobileSearchModal
+            onClose={() => onSearchModalOpen(false)}
+            searchTerm={clientSearchTerm}
+            onSearchTermChange={(v) => setClientSearchTerm(v)}
+            searchQuery={searchQuery}
+            onPaginate={onPaginate}
+          />
+          <DesktopSearchModal
+            onClose={() => onSearchModalOpen(false)}
+            searchTerm={clientSearchTerm}
+            onSearchTermChange={(v) => setClientSearchTerm(v)}
+            searchQuery={searchQuery}
+            onPaginate={onPaginate}
+          />
+        </>
+      ) : null}
     </>
   )
 }

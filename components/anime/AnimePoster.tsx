@@ -7,23 +7,33 @@ type AnimePosterProps = {
   title: string
   mainImageBlurred: string
   onClick?: () => void
+  scale?: number
+  priority?: boolean
 }
 
 const WrappedAnimePoster = forwardRef(function AnimePoster(
-  { mainImage, title, mainImageBlurred, onClick }: AnimePosterProps,
+  {
+    mainImage,
+    title,
+    mainImageBlurred,
+    onClick,
+    scale = 1,
+    priority,
+  }: AnimePosterProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
-    <AnimeImage onClick={onClick} ref={ref}>
+    <AnimeImage onClick={onClick} ref={ref} scale={scale}>
       <Image
         src={mainImage}
-        width={225}
-        height={350}
+        width={225 * scale}
+        height={350 * scale}
         layout="fixed"
         alt={`${title} poster.`}
         placeholder="blur"
         blurDataURL={mainImageBlurred}
         unoptimized
+        priority={priority}
       />
     </AnimeImage>
   )
@@ -31,8 +41,10 @@ const WrappedAnimePoster = forwardRef(function AnimePoster(
 
 export default WrappedAnimePoster
 
-const AnimeImage = styled.div`
+const AnimeImage = styled.div<{ scale: number }>`
   ${tw`rounded-lg shadow-lg dark:shadow-none overflow-hidden`}
-  width: 225px;
-  height: 350px;
+  ${({ scale }) => `
+    width: ${225 * scale}px;
+    height: ${350 * scale}px;
+  `}
 `
