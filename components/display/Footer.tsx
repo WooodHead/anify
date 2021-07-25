@@ -12,45 +12,47 @@ const Footer = () => {
 
   return (
     <Container>
-      <Grid>
-        <InfoSection>
-          <Logo mounted={mounted} />
+      <Content>
+        <Grid>
+          <InfoSection>
+            <Logo mounted={mounted} />
+            <p>
+              Anify is a cutting edge anime platform designed for the average
+              viewer. Oh and it&apos;s also 100% open-source.
+            </p>
+            <SocialIcons>
+              <Link href="https://github.com/anify-app" passHref>
+                <GithubIcon />
+              </Link>
+              <Link href="https://discord.gg/7yJ3xFMmxd" passHref>
+                <DiscordIcon />
+              </Link>
+            </SocialIcons>
+          </InfoSection>
+          <LinkSection>
+            <LinkSectionHeader>Navigation</LinkSectionHeader>
+            <Link href="/home" passHref>
+              <NavigationLink>Home</NavigationLink>
+            </Link>
+            <Link href="/anime" passHref>
+              <NavigationLink>Anime</NavigationLink>
+            </Link>
+          </LinkSection>
+        </Grid>
+        <SectionDivider />
+        <BottomRow>
           <p>
-            Anify is a cutting edge anime platform designed for the average
-            viewer. Oh and it&apos;s also 100% open-source.
+            Made by the{' '}
+            <Link href="https://github.com/orgs/anify-app/people" passHref>
+              <TeamLink>Anify team</TeamLink>
+            </Link>{' '}
+            with <CoffeeIcon /> and <HeartIcon />.
           </p>
-          <SocialIcons>
-            <Link href="https://github.com/anify-app" passHref>
-              <GithubIcon />
-            </Link>
-            <Link href="https://discord.gg/7yJ3xFMmxd" passHref>
-              <DiscordIcon />
-            </Link>
-          </SocialIcons>
-        </InfoSection>
-        <LinkSection>
-          <LinkSectionHeader>Navigation</LinkSectionHeader>
-          <Link href="/home" passHref>
-            <NavigationLink>Home</NavigationLink>
-          </Link>
-          <Link href="/anime" passHref>
-            <NavigationLink>Anime</NavigationLink>
-          </Link>
-        </LinkSection>
-      </Grid>
-      <SectionDivider />
-      <BottomRow>
-        <p>
-          Made by the{' '}
-          <Link href="https://github.com/orgs/anify-app/people" passHref>
-            <TeamLink>Anify team</TeamLink>
-          </Link>{' '}
-          with <CoffeeIcon /> and <HeartIcon />.
-        </p>
-        <p>
-          <Bold>12,000+</Bold> animes collected.
-        </p>
-      </BottomRow>
+          <p>
+            <Bold>12,000+</Bold> animes collected.
+          </p>
+        </BottomRow>
+      </Content>
     </Container>
   )
 }
@@ -61,6 +63,8 @@ const Container = styled.footer`
   ${tw`w-full bg-white dark:bg-black pb-12 pt-10 md:pt-12 xl:pt-16 px-8 xl:px-20 mt-8 text-sm`}
   box-shadow: 0 0px 20px 0 rgba(0,0,0,0.05);
 `
+
+const Content = tw.div`max-w-screen-2xl m-auto`
 
 const Grid = tw.div`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 md:gap-24`
 
