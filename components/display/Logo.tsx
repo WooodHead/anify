@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import tw, { styled } from 'twin.macro'
+import { useTheme } from 'next-themes'
 
 type LogoProps = {
-  resolvedTheme?: string
   mounted: boolean
 }
 
-const Logo = ({ resolvedTheme, mounted }: LogoProps) => {
+const Logo = ({ mounted }: LogoProps) => {
+  const { resolvedTheme } = useTheme()
+
   return (
     <Container>
       <Link href="/" passHref>

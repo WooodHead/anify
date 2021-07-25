@@ -6,12 +6,14 @@ import Div100vh from 'react-div-100vh'
 import Header from './Header'
 import SideNavigation from './SideNavigation'
 import SEO, { SEOProps } from './SEO'
+import Footer from './Footer'
 
 type LayoutProps = {
   children: React.ReactElement | React.ReactElement[]
   seo: SEOProps
   noPadding?: boolean
   shouldFullyCollapse?: boolean
+  showFooter?: boolean
 }
 
 const Layout = ({
@@ -19,6 +21,7 @@ const Layout = ({
   seo,
   noPadding = false,
   shouldFullyCollapse = false,
+  showFooter = false,
 }: LayoutProps) => {
   const [isOverlayScrollbarInitialized, setIsOverlayScrollbarInitialized] =
     useState(false)
@@ -70,6 +73,7 @@ const Layout = ({
               }}
             >
               {children}
+              {showFooter ? <Footer /> : null}
             </OverlayScrollbar>
           ) : null}
         </ContentContainer>
