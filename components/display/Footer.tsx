@@ -49,7 +49,7 @@ const Footer = () => {
             with <CoffeeIcon /> and <HeartIcon />.
           </p>
           <p>
-            <Bold>12,000+</Bold> animes collected.
+            <Bold>20,000+</Bold> animes collected.
           </p>
         </BottomRow>
       </Content>
