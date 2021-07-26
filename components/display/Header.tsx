@@ -41,7 +41,7 @@ const Header = ({
       <Container>
         <HamburgerButton onClick={onHamburgerClick} />
 
-        <Logo resolvedTheme={resolvedTheme} mounted={mounted} />
+        <Logo mounted={mounted} />
 
         <Search
           isSearchModalOpen={isSearchModalOpen}
