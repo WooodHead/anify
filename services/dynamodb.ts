@@ -51,6 +51,7 @@ export class AnimeEntity extends Document {
   updatedAt!: number
   japaneseTitle!: Maybe<string>
   synonyms: Array<string> = []
+  trailer!: string
 }
 
 const schema = new dynamoose.Schema(

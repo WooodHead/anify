@@ -26,6 +26,7 @@ export const schema = gql`
     englishTitle: String
     japaneseTitle: String
     synonyms: [String]
+    trailer: String
   }
 
   type Source {
