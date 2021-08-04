@@ -4,6 +4,7 @@ import tw, { styled } from 'twin.macro'
 import { Tag, Skeleton } from '@chakra-ui/react'
 import { HiStar } from 'react-icons/hi'
 import { isPresent } from 'utils'
+import _ from 'lodash'
 import SeasonTag from './SeasonTag'
 import StatisticCard from './StatisticCard'
 
@@ -63,9 +64,9 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
           <Label>
             <Field>Licensors</Field>
             <TagList>
-              {anime.licensors.map((licensor, index) => (
+              {anime.licensors.filter(isPresent).map((licensor, index) => (
                 <SpacedTag key={`licensor-${index}`} size="sm">
-                  {licensor}
+                  {_.truncate(licensor)}
                 </SpacedTag>
               ))}
             </TagList>
@@ -75,9 +76,9 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
           <Label>
             <Field>Producers</Field>
             <TagList>
-              {anime.producers.map((producer, index) => (
+              {anime.producers.filter(isPresent).map((producer, index) => (
                 <SpacedTag key={`producer-${index}`} size="sm">
-                  {producer}
+                  {_.truncate(producer)}
                 </SpacedTag>
               ))}
             </TagList>
@@ -87,9 +88,9 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
           <Label>
             <Field>Studios</Field>
             <TagList>
-              {anime.studios.map((studio, index) => (
+              {anime.studios.filter(isPresent).map((studio, index) => (
                 <SpacedTag key={`studio-${index}`} size="sm">
-                  {studio}
+                  {_.truncate(studio)}
                 </SpacedTag>
               ))}
             </TagList>
@@ -108,19 +109,34 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
         ) : null}
       </MoreInformationColumn>
 
-      <StatisticGrid isLoaded={isLoaded}>
-        {anime?.score ? (
-          <StatisticCard
-            icon={<ScoreIcon />}
-            label="Score"
-            value={
-              <>
-                {anime.score}
-                <ScoreTotal>/10</ScoreTotal>
-              </>
-            }
-          />
-        ) : null}
+      <StatisticGrid>
+        <ScoreLoadingSkeleton isLoaded={isLoaded}>
+          {anime?.score ? (
+            <StatisticCard
+              icon={<ScoreIcon />}
+              label="Score"
+              value={
+                <>
+                  {anime.score}
+                  <ScoreTotal>/10</ScoreTotal>
+                </>
+              }
+            />
+          ) : null}
+        </ScoreLoadingSkeleton>
+        <TrailerVideo isLoaded={isLoaded}>
+          {anime?.trailer ? (
+            <iframe
+              // prevent autoplay
+              src={anime.trailer.replace('autoplay=1', 'autoplay=0')}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+            />
+          ) : null}
+        </TrailerVideo>
       </StatisticGrid>
     </Container>
   )
@@ -131,13 +147,11 @@ export default InformationSection
 const Container = tw.div`grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 mt-8 gap-6`
 
 const MoreInformationColumn = styled(Skeleton)<{ isLoaded: boolean }>`
-  ${tw`bg-white dark:bg-gray-800 px-4 pt-4 pb-1 rounded shadow-lg dark:shadow-none order-2 md:order-1`}
-  ${({ isLoaded }) => (isLoaded ? tw`h-auto` : `height: 418px;`)}
+  ${tw`bg-white dark:bg-gray-800 px-4 pt-4 pb-1 rounded shadow-lg dark:shadow-none order-2 md:order-1 h-auto`}
 `
 
-const StatisticGrid = styled(Skeleton)<{ isLoaded: boolean }>`
-  ${tw`col-span-1 md:col-span-2 xl:col-span-3 order-1 md:order-2`}
-  ${({ isLoaded }) => (isLoaded ? tw`h-auto` : `height: 80px;`)}
+const StatisticGrid = styled.div`
+  ${tw`flex flex-col col-span-1 md:col-span-2 xl:col-span-3 order-1 md:order-2 gap-6 h-auto`}
 `
 
 const Label = tw.div`leading-5 mb-3`
@@ -155,3 +169,21 @@ const SpacedTag = tw(Tag)`mr-0.5`
 const ScoreIcon = tw(HiStar)`mr-2 w-6 h-6`
 
 const ScoreTotal = tw.span`text-base opacity-50`
+
+const ScoreLoadingSkeleton = styled(Skeleton)<{ isLoaded: boolean }>`
+  ${({ isLoaded }) => (isLoaded ? tw`h-auto` : `height: 80px;`)}
+`
+
+const TrailerVideo = styled(Skeleton)`
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`
