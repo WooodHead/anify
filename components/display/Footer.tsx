@@ -31,7 +31,7 @@ const Footer = () => {
           </InfoSection>
           <LinkSection>
             <LinkSectionHeader>Navigation</LinkSectionHeader>
-            <Link href="/home" passHref>
+            <Link href="/" passHref>
               <NavigationLink>Home</NavigationLink>
             </Link>
             <Link href="/anime" passHref>
