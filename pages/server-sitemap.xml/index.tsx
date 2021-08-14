@@ -12,7 +12,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   })
 
   const fields = animes.map((anime) => ({
-    loc: `https://anify.app/anime/${anime.slug}`,
+    loc: `https://anify.app/anime/${anime.shortId}/${anime.slug}`,
     lastmod: new Date().toISOString(),
   }))
 

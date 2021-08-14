@@ -183,8 +183,7 @@ export class DynamoDB extends DataSource {
 
   async getTop500Anime() {
     const animes: ScanResponse<AnimeEntity> = await this.animeRepository
-      .scan('slug')
-      .exists()
+      .scan()
       .filter('score')
       .exists()
       .all(100)
