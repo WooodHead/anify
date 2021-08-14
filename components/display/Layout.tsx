@@ -37,7 +37,7 @@ const Layout = ({
     <>
       <SEO {...seo} />
 
-      <Container>
+      <App>
         <Header
           onHamburgerClick={() =>
             setIsSideNavigationExpanded(!isSideNavigationExpanded)
@@ -46,10 +46,7 @@ const Layout = ({
           onSearchModalOpen={(val: boolean) => setIsSearchModalOpen(val)}
         />
 
-        <ContentContainer
-          $noPadding={noPadding || isOverlayScrollbarInitialized}
-          $noScroll={isSearchModalOpen}
-        >
+        <MainContent $noScroll={isSearchModalOpen}>
           <SideNavigation
             isExpanded={isSideNavigationExpanded}
             onClose={() => setIsSideNavigationExpanded(false)}
@@ -63,7 +60,6 @@ const Layout = ({
               className={
                 resolvedTheme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
               }
-              $noPadding={noPadding}
               options={{
                 scrollbars: { autoHide: 'scroll' },
                 nativeScrollbarsOverlaid: { initialize: false },
@@ -72,36 +68,38 @@ const Layout = ({
                 },
               }}
             >
-              {children}
-              {showFooter ? <Footer /> : null}
+              <PageContent
+                $noPadding={noPadding || isOverlayScrollbarInitialized}
+              >
+                {children}
+                {showFooter ? <Footer /> : null}
+              </PageContent>
             </OverlayScrollbar>
           ) : null}
-        </ContentContainer>
-      </Container>
+        </MainContent>
+      </App>
     </>
   )
 }
 
 export default Layout
 
-// Div100vh library required to have correct behavior on mobile safari
-const Container = tw(Div100vh)`flex flex-col`
+const PageContent = styled.div<{ $noPadding: boolean }>`
+  ${tw`w-screen h-full`}
+  ${({ $noPadding }) => !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`}
+`
 
-const ContentContainer = styled.div<{
-  $noPadding: boolean
+// Div100vh library required to have correct behavior on mobile safari
+const App = tw(Div100vh)`flex flex-col`
+
+const MainContent = styled.div<{
   $noScroll: boolean
 }>`
   ${tw`relative flex flex-grow h-full`}
-  ${({ $noPadding }) => !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`}
   ${({ $noScroll }) =>
     $noScroll ? tw`overflow-y-hidden` : tw`overflow-y-auto`}
 `
 
-const OverlayScrollbar = styled(OverlayScrollbarsComponent)<{
-  $noPadding: boolean
-}>`
-  ${({ $noPadding }) => [
-    tw`relative flex-grow bg-gray-50 dark:bg-gray-900 transition-colors overflow-hidden w-screen`,
-    !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`,
-  ]}
-`
+const OverlayScrollbar = tw(
+  OverlayScrollbarsComponent,
+)`relative flex-grow bg-gray-50 dark:bg-gray-900 transition-colors overflow-hidden`
