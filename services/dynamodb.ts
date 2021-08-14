@@ -1,7 +1,7 @@
 import { UserInputError } from 'apollo-server-micro'
 import * as dynamoose from 'dynamoose'
 import { Document } from 'dynamoose/dist/Document'
-import { ScanResponse } from 'dynamoose/dist/DocumentRetriever'
+import { ScanResponse, QueryResponse } from 'dynamoose/dist/DocumentRetriever'
 import { ModelType } from 'dynamoose/dist/General'
 import { Schema } from 'dynamoose/dist/Schema'
 import { DataSource } from 'apollo-datasource'
@@ -24,6 +24,9 @@ export class AnimeEntity extends Document {
   GSI2SK: AnimeTableAttributes | undefined
   title!: Maybe<string>
   type!: Maybe<string>
+  shortId!: string
+  id!: string
+  colors: Array<string> = []
   genres: Array<string> = []
   status!: Maybe<string>
   relations!: Maybe<AnimeRelations>
@@ -180,8 +183,7 @@ export class DynamoDB extends DataSource {
 
   async getTop500Anime() {
     const animes: ScanResponse<AnimeEntity> = await this.animeRepository
-      .scan('slug')
-      .exists()
+      .scan()
       .filter('score')
       .exists()
       .all(100)
@@ -198,15 +200,29 @@ export class DynamoDB extends DataSource {
   }
   async getAnime(args: QueryGetAnimeArgs) {
     try {
-      const anime = await this.animeRepository.get({
-        PK: `ANIME#${args.slug}`,
-        SK: 'VERSION#v1',
-      })
+      const animeResponse: QueryResponse<AnimeEntity> =
+        await this.animeRepository
+          .query('GSI1PK')
+          .eq(`TITLE#${args.slug}`)
+          .filter('shortId')
+          .eq(args.shortId)
+          .using('GSI1')
+          .exec()
 
-      return this.animeMapper(anime)
+      return this.animeMapper(animeResponse[0])
     } catch (error) {
       throw error
     }
+  }
+
+  async getAnimeBySlug(args: QueryGetAnimeBySlugArgs) {
+    const animeResponse: QueryResponse<AnimeEntity> = await this.animeRepository
+      .query('GSI1PK')
+      .eq(`TITLE#${args.slug}`)
+      .using('GSI1')
+      .exec()
+
+    return this.animeMapper(animeResponse[0])
   }
   animeMapper(animeEntity: AnimeEntity): Anime {
     const {

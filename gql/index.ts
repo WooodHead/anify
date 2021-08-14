@@ -4,6 +4,7 @@ export const SEARCH_ANIME = gql`
   query SearchAnime($query: String!, $page: Int, $hitsPerPage: Int) {
     searchAnime(query: $query, page: $page, hitsPerPage: $hitsPerPage) {
       hits {
+        shortId
         slug
         title
         englishTitle

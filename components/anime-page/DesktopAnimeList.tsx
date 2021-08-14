@@ -45,7 +45,7 @@ const DesktopAnimeList = ({ searchQuery }: DesktopAnimeListProps) => {
               hasArrow
             >
               <AnimePost>
-                <Link href={`/anime/${anime.slug}`} passHref>
+                <Link href={`/anime/${anime.shortId}/${anime.slug}`} passHref>
                   <AnimePoster
                     title={anime.englishTitle || anime.title || ''}
                     mainImage={anime.mainImage}

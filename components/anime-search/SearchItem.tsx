@@ -13,7 +13,11 @@ const SearchItem = ({ anime }: SearchItemProps) => {
     return null
 
   return (
-    <Link key={anime.slug} href={`/anime/${anime.slug}`} passHref>
+    <Link
+      key={anime.slug}
+      href={`/anime/${anime.shortId}/${anime.slug}`}
+      passHref
+    >
       <Container>
         <Absolute>
           <AnimePoster

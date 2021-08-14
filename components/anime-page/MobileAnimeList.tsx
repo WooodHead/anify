@@ -40,7 +40,7 @@ const MobileAnimeList = ({ searchQuery }: MobileAnimeListProps) => {
 
           return (
             <AnimePost key={anime.slug}>
-              <Link href={`/anime/${anime.slug}`} passHref>
+              <Link href={`/anime/${anime.shortId}/${anime.slug}`} passHref>
                 <AnimeCard>
                   <ImageContainer>
                     <Image

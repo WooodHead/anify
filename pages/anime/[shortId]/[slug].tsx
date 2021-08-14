@@ -58,31 +58,13 @@ export default AnimePage
 const Content = tw.div`m-auto max-w-6xl px-6 py-8 md:pb-10 md:pt-6`
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // use mock-data for local development
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      paths: [
-        {
-          params: {
-            slug: 'One-Piece',
-          },
-        },
-        {
-          params: {
-            slug: 'Heavy',
-          },
-        },
-      ],
-      fallback: true,
-    }
-  }
-
   const dynamo = new DynamoDB()
 
   const animes = await dynamo.getTop500Anime()
 
   const paths = animes.map((item) => ({
     params: {
+      shortId: item.shortId,
       slug: item.slug,
     },
   }))
@@ -90,17 +72,22 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: true }
 }
 
-export const getStaticProps: GetStaticProps<AnimePageProps, { slug: string }> =
-  async ({ params }) => {
-    const dynamo = new DynamoDB()
+export const getStaticProps: GetStaticProps<
+  AnimePageProps,
+  { shortId: string; slug: string }
+> = async ({ params }) => {
+  const dynamo = new DynamoDB()
 
-    const data = await dynamo.getAnime({ slug: params?.slug || '' })
+  const data = await dynamo.getAnime({
+    shortId: params?.shortId || '',
+    slug: params?.slug || '',
+  })
 
-    const anime = data
+  const anime = data
 
-    return {
-      props: { anime },
-      // pre-render becomes outdated after 5 minutes
-      revalidate: 300,
-    }
+  return {
+    props: { anime },
+    // pre-render becomes outdated after 5 minutes
+    revalidate: 300,
   }
+}
