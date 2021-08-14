@@ -7,8 +7,9 @@ export const schema = gql`
     genres: [String]
     type: String
     status: String
-    id: String!
+    id: String
     shortId: String!
+    colors: [String]
     rating: String
     episodes: Int
     mainImage: String

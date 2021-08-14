@@ -205,9 +205,10 @@ export class DynamoDB extends DataSource {
       const animeResponse: Query<AnimeEntity> = await this.animeRepository
         .query('GSI1PK')
         .eq(`TITLE#${args.slug}`)
-        .where('shortId')
+        .filter('shortId')
         .eq(args.shortId)
         .using('GSI1')
+        .exec()
 
       return this.animeMapper(animeResponse[0])
     } catch (error) {
@@ -221,6 +222,7 @@ export class DynamoDB extends DataSource {
       .query('GSI1PK')
       .eq(`TITLE#${args.slug}`)
       .using('GSI1')
+      .exec()
 
     return this.animeMapper(animeResponse[0])
   }

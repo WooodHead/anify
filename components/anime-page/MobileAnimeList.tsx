@@ -40,7 +40,6 @@ const MobileAnimeList = ({ searchQuery }: MobileAnimeListProps) => {
 
           return (
             <AnimePost key={anime.slug}>
-              {/* @ts-expect-error waiting for Isaiah's code */}
               <Link href={`/anime/${anime.shortId}/${anime.slug}`} passHref>
                 <AnimeCard>
                   <ImageContainer>

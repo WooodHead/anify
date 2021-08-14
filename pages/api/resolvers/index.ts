@@ -14,6 +14,11 @@ export const resolvers = {
       args: QueryGetAnimeArgs,
       { dataSources }: DataSources,
     ) => dataSources.dynamodb.getAnime(args),
+    getAnimeByTitle: async (
+      _: null,
+      args: QueryGetAnimeByTitleArgs,
+      { dataSources }: DataSources,
+    ) => dataSources.dynamodb.getAnimeByTitle(args),
     searchAnime: async (
       _: null,
       args: QuerySearchAnimeArgs,

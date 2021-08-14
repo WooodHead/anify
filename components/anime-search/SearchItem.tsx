@@ -15,10 +15,7 @@ const SearchItem = ({ anime }: SearchItemProps) => {
   return (
     <Link
       key={anime.slug}
-      href={`/anime/${
-        // @ts-expect-error waiting for Isaiah's code
-        anime.shortId
-      }/${anime.slug}`}
+      href={`/anime/${anime.shortId}/${anime.slug}`}
       passHref
     >
       <Container>

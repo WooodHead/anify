@@ -85,7 +85,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = animes.map((item) => ({
     params: {
-      // @ts-expect-error id doesn't exist yet
       shortId: item.shortId,
       slug: item.slug,
     },
@@ -101,7 +100,6 @@ export const getStaticProps: GetStaticProps<
   const dynamo = new DynamoDB()
 
   const data = await dynamo.getAnime({
-    // @ts-expect-error wait for Isaiah's code
     shortId: params?.shortId || '',
     slug: params?.slug || '',
   })
