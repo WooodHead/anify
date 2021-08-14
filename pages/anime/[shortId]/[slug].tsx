@@ -64,11 +64,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
       paths: [
         {
           params: {
+            shortId: 'j9fdsa',
             slug: 'One-Piece',
           },
         },
         {
           params: {
+            shortId: '32rfds',
             slug: 'Heavy',
           },
         },
@@ -83,6 +85,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = animes.map((item) => ({
     params: {
+      // @ts-expect-error id doesn't exist yet
+      shortId: item.shortId,
       slug: item.slug,
     },
   }))
@@ -90,17 +94,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: true }
 }
 
-export const getStaticProps: GetStaticProps<AnimePageProps, { slug: string }> =
-  async ({ params }) => {
-    const dynamo = new DynamoDB()
+export const getStaticProps: GetStaticProps<
+  AnimePageProps,
+  { shortId: string; slug: string }
+> = async ({ params }) => {
+  const dynamo = new DynamoDB()
 
-    const data = await dynamo.getAnime({ slug: params?.slug || '' })
+  const data = await dynamo.getAnime({
+    // @ts-expect-error wait for Isaiah's code
+    shortId: params?.shortId || '',
+    slug: params?.slug || '',
+  })
 
-    const anime = data
+  const anime = data
 
-    return {
-      props: { anime },
-      // pre-render becomes outdated after 5 minutes
-      revalidate: 300,
-    }
+  return {
+    props: { anime },
+    // pre-render becomes outdated after 5 minutes
+    revalidate: 300,
   }
+}

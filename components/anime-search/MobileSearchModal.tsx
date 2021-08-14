@@ -74,7 +74,13 @@ const MobileSearchModal = ({
 
                 return (
                   <AnimePost key={anime.slug}>
-                    <Link href={`/anime/${anime.slug}`} passHref>
+                    <Link
+                      href={`/anime/${
+                        // @ts-expect-error waiting for Isaiah's code
+                        anime.shortId
+                      }/${anime.slug}`}
+                      passHref
+                    >
                       <AnimeCard>
                         <ImageContainer>
                           <Image

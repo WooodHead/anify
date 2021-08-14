@@ -45,7 +45,8 @@ const DesktopAnimeList = ({ searchQuery }: DesktopAnimeListProps) => {
               hasArrow
             >
               <AnimePost>
-                <Link href={`/anime/${anime.slug}`} passHref>
+                {/* @ts-expect-error waiting for Isaiah's code */}
+                <Link href={`/anime/${anime.shortId}/${anime.slug}`} passHref>
                   <AnimePoster
                     title={anime.englishTitle || anime.title || ''}
                     mainImage={anime.mainImage}
