@@ -192,7 +192,7 @@ export class DynamoDB extends DataSource {
         animes.map((anime) => this.animeMapper(anime)),
         ['score'],
       ),
-    ).slice(0, 499)
+    ).slice(0, Math.min(animes.length - 1, 499))
 
     return top500Animes
   }
