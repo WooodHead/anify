@@ -23,8 +23,6 @@ const Layout = ({
   shouldFullyCollapse = false,
   showFooter = false,
 }: LayoutProps) => {
-  const [isOverlayScrollbarInitialized, setIsOverlayScrollbarInitialized] =
-    useState(false)
   const { resolvedTheme } = useTheme()
   const [isSideNavigationExpanded, setIsSideNavigationExpanded] =
     useState<boolean>(false)
@@ -37,7 +35,7 @@ const Layout = ({
     <>
       <SEO {...seo} />
 
-      <Container>
+      <App>
         <Header
           onHamburgerClick={() =>
             setIsSideNavigationExpanded(!isSideNavigationExpanded)
@@ -46,10 +44,7 @@ const Layout = ({
           onSearchModalOpen={(val: boolean) => setIsSearchModalOpen(val)}
         />
 
-        <ContentContainer
-          $noPadding={noPadding || isOverlayScrollbarInitialized}
-          $noScroll={isSearchModalOpen}
-        >
+        <MainContent $noScroll={isSearchModalOpen}>
           <SideNavigation
             isExpanded={isSideNavigationExpanded}
             onClose={() => setIsSideNavigationExpanded(false)}
@@ -63,21 +58,19 @@ const Layout = ({
               className={
                 resolvedTheme === 'dark' ? 'os-theme-light' : 'os-theme-dark'
               }
-              $noPadding={noPadding}
               options={{
                 scrollbars: { autoHide: 'scroll' },
                 nativeScrollbarsOverlaid: { initialize: false },
-                callbacks: {
-                  onInitialized: () => setIsOverlayScrollbarInitialized(true),
-                },
               }}
             >
-              {children}
-              {showFooter ? <Footer /> : null}
+              <PageContent $noPadding={noPadding}>
+                {children}
+                {showFooter ? <Footer /> : null}
+              </PageContent>
             </OverlayScrollbar>
           ) : null}
-        </ContentContainer>
-      </Container>
+        </MainContent>
+      </App>
     </>
   )
 }
@@ -85,23 +78,21 @@ const Layout = ({
 export default Layout
 
 // Div100vh library required to have correct behavior on mobile safari
-const Container = tw(Div100vh)`flex flex-col`
+const App = tw(Div100vh)`flex flex-col`
 
-const ContentContainer = styled.div<{
-  $noPadding: boolean
+const MainContent = styled.div<{
   $noScroll: boolean
 }>`
-  ${tw`relative flex flex-grow h-full`}
-  ${({ $noPadding }) => !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`}
+  ${tw`relative flex flex-grow h-full overflow-x-hidden`}
   ${({ $noScroll }) =>
     $noScroll ? tw`overflow-y-hidden` : tw`overflow-y-auto`}
 `
 
-const OverlayScrollbar = styled(OverlayScrollbarsComponent)<{
-  $noPadding: boolean
-}>`
-  ${({ $noPadding }) => [
-    tw`relative flex-grow bg-gray-50 dark:bg-gray-900 transition-colors overflow-hidden w-screen`,
-    !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`,
-  ]}
+const PageContent = styled.div<{ $noPadding: boolean }>`
+  ${tw`w-screen h-full`}
+  ${({ $noPadding }) => !$noPadding && tw`px-6 md:px-14 py-8 md:py-10`}
 `
+
+const OverlayScrollbar = tw(
+  OverlayScrollbarsComponent,
+)`relative flex-grow bg-gray-50 dark:bg-gray-900 transition-colors overflow-hidden`
