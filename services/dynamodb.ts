@@ -1,7 +1,7 @@
 import { UserInputError } from 'apollo-server-micro'
 import * as dynamoose from 'dynamoose'
 import { Document } from 'dynamoose/dist/Document'
-import { ScanResponse } from 'dynamoose/dist/DocumentRetriever'
+import { ScanResponse, QueryResponse } from 'dynamoose/dist/DocumentRetriever'
 import { ModelType } from 'dynamoose/dist/General'
 import { Schema } from 'dynamoose/dist/Schema'
 import { DataSource } from 'apollo-datasource'
@@ -200,14 +200,14 @@ export class DynamoDB extends DataSource {
   }
   async getAnime(args: QueryGetAnimeArgs) {
     try {
-      //@ts-ignore
-      const animeResponse: Query<AnimeEntity> = await this.animeRepository
-        .query('GSI1PK')
-        .eq(`TITLE#${args.slug}`)
-        .filter('shortId')
-        .eq(args.shortId)
-        .using('GSI1')
-        .exec()
+      const animeResponse: QueryResponse<AnimeEntity> =
+        await this.animeRepository
+          .query('GSI1PK')
+          .eq(`TITLE#${args.slug}`)
+          .filter('shortId')
+          .eq(args.shortId)
+          .using('GSI1')
+          .exec()
 
       return this.animeMapper(animeResponse[0])
     } catch (error) {
@@ -216,8 +216,7 @@ export class DynamoDB extends DataSource {
   }
 
   async getAnimeBySlug(args: QueryGetAnimeBySlugArgs) {
-    //@ts-ignore
-    const animeResponse: Query<AnimeEntity> = await this.animeRepository
+    const animeResponse: QueryResponse<AnimeEntity> = await this.animeRepository
       .query('GSI1PK')
       .eq(`TITLE#${args.slug}`)
       .using('GSI1')
