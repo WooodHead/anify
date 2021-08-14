@@ -151,8 +151,7 @@ export class DynamoDB extends DataSource {
 
       if (args.first) {
         const animes: ScanResponse<AnimeEntity> = await this.animeRepository
-          .scan('slug')
-          .exists()
+          .scan()
           .limit(args.first)
           .exec()
 
@@ -160,8 +159,7 @@ export class DynamoDB extends DataSource {
       }
 
       const animes: ScanResponse<AnimeEntity> = await this.animeRepository
-        .scan('slug')
-        .exists()
+        .scan()
         .all(100)
         .exec()
 
