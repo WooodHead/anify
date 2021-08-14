@@ -50,7 +50,7 @@ export const schema = gql`
 
   type Query {
     getAnime(slug: String!, shortId: String!): Anime!
-    getAnimeByTitle(slug: String!): Anime!
+    getAnimeBySlug(slug: String!): Anime!
     getAllAnime(first: Int, last: Int, skip: Int): [Anime!]!
     searchAnime(
       query: String!

@@ -215,7 +215,7 @@ export class DynamoDB extends DataSource {
     }
   }
 
-  async getAnimeByTitle(args: QueryGetAnimeByTitleArgs) {
+  async getAnimeBySlug(args: QueryGetAnimeBySlugArgs) {
     //@ts-ignore
     const animeResponse: Query<AnimeEntity> = await this.animeRepository
       .query('GSI1PK')

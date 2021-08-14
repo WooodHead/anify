@@ -14,11 +14,11 @@ export const resolvers = {
       args: QueryGetAnimeArgs,
       { dataSources }: DataSources,
     ) => dataSources.dynamodb.getAnime(args),
-    getAnimeByTitle: async (
+    getAnimeBySlug: async (
       _: null,
-      args: QueryGetAnimeByTitleArgs,
+      args: QueryGetAnimeBySlugArgs,
       { dataSources }: DataSources,
-    ) => dataSources.dynamodb.getAnimeByTitle(args),
+    ) => dataSources.dynamodb.getAnimeBySlug(args),
     searchAnime: async (
       _: null,
       args: QuerySearchAnimeArgs,
@@ -35,7 +35,7 @@ export const resolvers = {
       if (!parent.sideStory) return []
       return Promise.all(
         parent?.sideStory?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -47,7 +47,7 @@ export const resolvers = {
       if (!parent.summary) return []
       return Promise.all(
         parent?.summary?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -59,7 +59,7 @@ export const resolvers = {
       if (!parent.other) return []
       return Promise.all(
         parent?.other?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -71,7 +71,7 @@ export const resolvers = {
       if (!parent.alternativeVersion) return []
       return Promise.all(
         parent?.alternativeVersion?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -83,7 +83,7 @@ export const resolvers = {
       if (!parent.sequel) return []
       return Promise.all(
         parent?.sequel?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -95,7 +95,7 @@ export const resolvers = {
       if (!parent.spinOff) return []
       return Promise.all(
         parent?.spinOff?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -107,7 +107,7 @@ export const resolvers = {
       if (!parent.alternativeSetting) return []
       return Promise.all(
         parent?.alternativeSetting?.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
@@ -119,7 +119,7 @@ export const resolvers = {
       if (!parent.prequel) return []
       return Promise.all(
         parent.prequel.map((title) =>
-          title ? dataSources.dynamodb.getAnimeByTitle({ slug: title }) : null,
+          title ? dataSources.dynamodb.getAnimeBySlug({ slug: title }) : null,
         ),
       )
     },
