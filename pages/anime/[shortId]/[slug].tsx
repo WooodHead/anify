@@ -58,27 +58,6 @@ export default AnimePage
 const Content = tw.div`m-auto max-w-6xl px-6 py-8 md:pb-10 md:pt-6`
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // use mock-data for local development
-  if (process.env.NODE_ENV === 'development') {
-    return {
-      paths: [
-        {
-          params: {
-            shortId: 'j9fdsa',
-            slug: 'One-Piece',
-          },
-        },
-        {
-          params: {
-            shortId: '32rfds',
-            slug: 'Heavy',
-          },
-        },
-      ],
-      fallback: true,
-    }
-  }
-
   const dynamo = new DynamoDB()
 
   const animes = await dynamo.getTop500Anime()
