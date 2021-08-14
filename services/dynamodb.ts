@@ -24,6 +24,9 @@ export class AnimeEntity extends Document {
   GSI2SK: AnimeTableAttributes | undefined
   title!: Maybe<string>
   type!: Maybe<string>
+  shortId!: string
+  id!: string
+  colors: Array<string> = []
   genres: Array<string> = []
   status!: Maybe<string>
   relations!: Maybe<AnimeRelations>
@@ -198,15 +201,28 @@ export class DynamoDB extends DataSource {
   }
   async getAnime(args: QueryGetAnimeArgs) {
     try {
-      const anime = await this.animeRepository.get({
-        PK: `ANIME#${args.slug}`,
-        SK: 'VERSION#v1',
-      })
+      //@ts-ignore
+      const animeResponse: Query<AnimeEntity> = await this.animeRepository
+        .query('GSI1PK')
+        .eq(`TITLE#${args.slug}`)
+        .where('shortId')
+        .eq(args.shortId)
+        .using('GSI1')
 
-      return this.animeMapper(anime)
+      return this.animeMapper(animeResponse[0])
     } catch (error) {
       throw error
     }
+  }
+
+  async getAnimeByTitle(args: QueryGetAnimeByTitleArgs) {
+    //@ts-ignore
+    const animeResponse: Query<AnimeEntity> = await this.animeRepository
+      .query('GSI1PK')
+      .eq(`TITLE#${args.slug}`)
+      .using('GSI1')
+
+    return this.animeMapper(animeResponse[0])
   }
   animeMapper(animeEntity: AnimeEntity): Anime {
     const {
