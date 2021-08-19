@@ -11,6 +11,7 @@ import {
 } from 'components/anime-page'
 import { DynamoDB } from 'services/dynamodb'
 import { useRouter } from 'next/router'
+import { isPresent } from 'utils'
 
 type AnimePageProps = {
   anime: Anime | null
@@ -38,11 +39,7 @@ const AnimePage = ({ anime }: AnimePageProps) => {
       key={anime?.slug}
       showFooter
     >
-      <CoverImage
-        isLoaded={isLoaded}
-        mainImage={anime?.mainImage}
-        mainImageBlurred={anime?.mainImageBlurred}
-      />
+      <CoverImage colors={anime?.colors?.filter(isPresent) || []} />
 
       <Content>
         <MainInformation isLoaded={isLoaded} anime={anime} />
