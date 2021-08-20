@@ -14,6 +14,7 @@ export const SEARCH_ANIME = gql`
         genres
         mainImageBlurred
         score
+        colors
       }
       hasNextPage
       page
