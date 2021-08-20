@@ -206,6 +206,7 @@ export class DynamoDB extends DataSource {
           .eq(args.shortId)
           .using('GSI1')
           .exec()
+      if (animeResponse.count === 0) return null
 
       return this.animeMapper(animeResponse[0])
     } catch (error) {
@@ -219,6 +220,7 @@ export class DynamoDB extends DataSource {
       .eq(`TITLE#${args.slug}`)
       .using('GSI1')
       .exec()
+    if (animeResponse.count === 0) return null
 
     return this.animeMapper(animeResponse[0])
   }
