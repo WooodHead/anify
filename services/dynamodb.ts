@@ -15,6 +15,20 @@ dynamoose.aws.sdk.config.update({
   region: process.env.REGION,
 })
 
+type relations = {
+  sideStory: Maybe<Array<string>>
+  summary: Maybe<Array<string>>
+  other: Maybe<Array<string>>
+  alternativeVersion: Maybe<Array<string>>
+  alternativeSetting: Maybe<Array<string>>
+  sequel: Maybe<Array<string>>
+  spinOff: Maybe<Array<string>>
+  prequel: Maybe<Array<string>>
+}
+
+interface AnimeEntityRelations extends Omit<AnimeEntity, 'relations'> {
+  relations: relations
+}
 export class AnimeEntity extends Document {
   PK!: AnimeTableAttributes
   SK!: AnimeTableAttributes
@@ -224,6 +238,7 @@ export class DynamoDB extends DataSource {
 
     return this.animeMapper(animeResponse[0])
   }
+
   animeMapper(animeEntity: AnimeEntity): Anime {
     const {
       PK,
@@ -243,5 +258,99 @@ export class DynamoDB extends DataSource {
     const anime = { ...rest }
 
     return anime
+  }
+
+  async getAnimeWithRelations(args: QueryGetAnimeArgs) {
+    try {
+      const animeResponse: QueryResponse<AnimeEntityRelations> =
+        await this.animeRepository
+          .query('GSI1PK')
+          .eq(`TITLE#${args.slug}`)
+          .filter('shortId')
+          .eq(args.shortId)
+          .using('GSI1')
+          .exec()
+      if (animeResponse.count === 0) return null
+
+      const animeEntityWithRelations = await this.getRelations(animeResponse[0])
+      const anime = this.animeMapper(animeEntityWithRelations)
+
+      return anime
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getRelations(anime: AnimeEntityRelations) {
+    const sideStory = anime.relations?.sideStory
+      ? await Promise.all(
+          anime.relations?.sideStory?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const other = anime.relations?.other
+      ? await Promise.all(
+          anime.relations?.other?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const prequel = anime.relations?.prequel
+      ? await Promise.all(
+          anime.relations?.prequel?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const sequel = anime.relations?.sequel
+      ? await Promise.all(
+          anime.relations?.sequel?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const spinOff = anime.relations?.spinOff
+      ? await Promise.all(
+          anime.relations?.spinOff?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const summary = anime.relations?.summary
+      ? await Promise.all(
+          anime.relations?.summary?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const alternativeSetting = anime.relations?.alternativeSetting
+      ? await Promise.all(
+          anime.relations?.alternativeSetting?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const alternativeVersion = anime.relations?.alternativeVersion
+      ? await Promise.all(
+          anime.relations?.alternativeVersion?.map((title) =>
+            title ? this.getAnimeBySlug({ slug: title }) : null,
+          ),
+        )
+      : []
+    const animeWithRelations = {
+      ...anime,
+      relations: {
+        sideStory,
+        other,
+        prequel,
+        sequel,
+        spinOff,
+        summary,
+        alternativeSetting,
+        alternativeVersion,
+      },
+    }
+    return animeWithRelations
   }
 }
