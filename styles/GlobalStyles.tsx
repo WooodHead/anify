@@ -1,8 +1,9 @@
 import React from 'react'
 import { createGlobalStyle } from 'styled-components'
 import tw, { theme, GlobalStyles as BaseStyles } from 'twin.macro'
+import { useTheme } from 'next-themes'
 
-const CustomStyles = createGlobalStyle`
+const CustomStyles = createGlobalStyle<{ resolvedTheme?: string }>`
   body {
     -webkit-tap-highlight-color: ${theme`colors.emerald.500`};
     ${tw`antialiased bg-gray-50! dark:bg-gray-900! text-gray-900 dark:text-gray-50 overflow-hidden`}
@@ -20,13 +21,35 @@ const CustomStyles = createGlobalStyle`
   hr {
     box-sizing: border-box !important;
   }
+
+  ::-moz-selection {
+    color: ${({ resolvedTheme }) =>
+      resolvedTheme === 'dark' ? 'black' : 'white'};;
+    background: ${({ resolvedTheme }) =>
+      resolvedTheme === 'dark'
+        ? 'var(--primary-color-dark)'
+        : 'var(--primary-color)'};
+  }
+
+  ::selection {
+    color: ${({ resolvedTheme }) =>
+      resolvedTheme === 'dark' ? 'black' : 'white'};;
+    background: ${({ resolvedTheme }) =>
+      resolvedTheme === 'dark'
+        ? 'var(--primary-color-dark)'
+        : 'var(--primary-color)'};
+  }
 `
 
-const GlobalStyles = () => (
-  <>
-    <BaseStyles />
-    <CustomStyles />
-  </>
-)
+const GlobalStyles = () => {
+  const { resolvedTheme } = useTheme()
+
+  return (
+    <>
+      <BaseStyles />
+      <CustomStyles resolvedTheme={resolvedTheme} />
+    </>
+  )
+}
 
 export default GlobalStyles
