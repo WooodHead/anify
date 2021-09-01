@@ -9,6 +9,7 @@ type AnimePosterProps = {
   onClick?: () => void
   scale?: number
   priority?: boolean
+  className?: string
 }
 
 const WrappedAnimePoster = forwardRef(function AnimePoster(
@@ -19,11 +20,12 @@ const WrappedAnimePoster = forwardRef(function AnimePoster(
     onClick,
     scale = 1,
     priority,
+    className,
   }: AnimePosterProps,
   ref: ForwardedRef<HTMLDivElement>,
 ) {
   return (
-    <AnimeImage onClick={onClick} ref={ref} scale={scale}>
+    <AnimeImage onClick={onClick} ref={ref} scale={scale} className={className}>
       <Image
         src={mainImage}
         width={225 * scale}
@@ -41,10 +43,11 @@ const WrappedAnimePoster = forwardRef(function AnimePoster(
 
 export default WrappedAnimePoster
 
-const AnimeImage = styled.div<{ scale: number }>`
+const AnimeImage = styled.div<{ scale: number; className?: string }>`
   ${tw`rounded-lg shadow-lg dark:shadow-none overflow-hidden`}
   ${({ scale }) => `
     width: ${225 * scale}px;
     height: ${350 * scale}px;
   `}
+  ${({ className }) => className}
 `

@@ -39,6 +39,25 @@ const CustomStyles = createGlobalStyle<{ resolvedTheme?: string }>`
         ? 'var(--primary-color-dark)'
         : 'var(--primary-color)'};
   }
+
+  
+
+  .swiper-button-prev {
+    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all`}
+    left: 0px;
+    top: 16px;
+  }
+
+  .swiper-button-next {
+    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all`}
+    height: 100%;
+    right: 0px;
+    top: 16px;
+  }
+
+  .swiper-button-disabled {
+    ${tw`hidden`}
+  }
 `
 
 const GlobalStyles = () => {

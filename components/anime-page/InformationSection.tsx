@@ -7,6 +7,7 @@ import { isPresent } from 'utils'
 import _ from 'lodash'
 import SeasonTag from './SeasonTag'
 import StatisticCard from './StatisticCard'
+import Relations from './Relations'
 
 type InformationSectionProps = {
   isLoaded: boolean
@@ -124,6 +125,9 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
             />
           ) : null}
         </ScoreLoadingSkeleton>
+
+        <Relations anime={anime} />
+
         <TrailerVideo isLoaded={isLoaded}>
           {anime?.trailer ? (
             <iframe
