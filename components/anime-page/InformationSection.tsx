@@ -7,7 +7,7 @@ import { isPresent } from 'utils'
 import _ from 'lodash'
 import SeasonTag from './SeasonTag'
 import StatisticCard from './StatisticCard'
-import Relations from './Relations'
+import RelatedAnime from './RelatedAnime'
 
 type InformationSectionProps = {
   isLoaded: boolean
@@ -126,7 +126,7 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
           ) : null}
         </ScoreLoadingSkeleton>
 
-        <Relations anime={anime} />
+        <RelatedAnime anime={anime} />
 
         <div>
           <SectionTitle>Trailer</SectionTitle>
@@ -154,7 +154,7 @@ export default InformationSection
 const Container = tw.div`grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 mt-8 gap-6`
 
 const MoreInformationColumn = styled(Skeleton)<{ isLoaded: boolean }>`
-  ${tw`bg-white dark:bg-gray-800 px-4 pt-4 pb-1 rounded shadow-lg dark:shadow-none order-2 md:order-1 h-auto`}
+  ${tw`bg-white dark:bg-gray-800 px-4 pt-4 pb-1 rounded shadow-lg dark:shadow-none order-2 md:order-1 self-start`}
 `
 
 const StatisticGrid = styled.div`

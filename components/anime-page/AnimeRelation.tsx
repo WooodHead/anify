@@ -2,12 +2,12 @@ import tw from 'twin.macro'
 import { AnimePoster } from 'components/anime'
 import Link from 'next/link'
 
-type PrimaryRelationProps = {
+type AnimeRelationProps = {
   anime: Anime
   label: string
 }
 
-const PrimaryRelation = ({ anime, label }: PrimaryRelationProps) => {
+const AnimeRelation = ({ anime, label }: AnimeRelationProps) => {
   return (
     <Link
       key={anime.slug}
@@ -28,8 +28,8 @@ const PrimaryRelation = ({ anime, label }: PrimaryRelationProps) => {
   )
 }
 
-export default PrimaryRelation
+export default AnimeRelation
 
 const Container = tw.a`block relative w-min`
 
-const Label = tw.div`text-center p-2 text-sm font-semibold bg-gray-900 bg-opacity-90! text-white dark:text-gray-900 dark:bg-white`
+const Label = tw.div`text-center p-2 text-sm font-semibold bg-gray-900 bg-opacity-90! text-gray-50 dark:text-gray-900 dark:bg-gray-200`

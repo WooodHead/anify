@@ -3,37 +3,37 @@ import { isPresent } from 'utils'
 import tw from 'twin.macro'
 import SwiperCore, { Navigation } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import PrimaryRelation from './PrimaryRelation'
+import AnimeRelation from './AnimeRelation'
 
 SwiperCore.use([Navigation])
 
-type RelationsProps = {
+type RelatedAnimeProps = {
   anime?: Anime | null
 }
 
-const Relations = ({ anime }: RelationsProps) => {
+const RelatedAnime = ({ anime }: RelatedAnimeProps) => {
   const relatedAnimes = useMemo<JSX.Element[]>(
     () => [
       ...(anime?.relations?.prequel.filter(isPresent).map((prequel) => (
         <SwiperSlide key={prequel.id}>
-          <PrimaryRelation anime={prequel} label="Prequel" />
+          <AnimeRelation anime={prequel} label="Prequel" />
         </SwiperSlide>
       )) || []),
       ...(anime?.relations?.sequel.filter(isPresent).map((sequel) => (
         <SwiperSlide key={sequel.id}>
-          <PrimaryRelation anime={sequel} label="Sequel" />
+          <AnimeRelation anime={sequel} label="Sequel" />
         </SwiperSlide>
       )) || []),
       ...(anime?.relations?.sideStory.filter(isPresent).map((sideStory) => (
         <SwiperSlide key={sideStory.id}>
-          <PrimaryRelation anime={sideStory} label="Side Story" />
+          <AnimeRelation anime={sideStory} label="Side Story" />
         </SwiperSlide>
       )) || []),
       ...(anime?.relations?.alternativeVersion
         .filter(isPresent)
         .map((alternativeVersion) => (
           <SwiperSlide key={alternativeVersion.id}>
-            <PrimaryRelation
+            <AnimeRelation
               anime={alternativeVersion}
               label="Alternative Version"
             />
@@ -43,7 +43,7 @@ const Relations = ({ anime }: RelationsProps) => {
         .filter(isPresent)
         .map((alternativeSetting) => (
           <SwiperSlide key={alternativeSetting.id}>
-            <PrimaryRelation
+            <AnimeRelation
               anime={alternativeSetting}
               label="Alternative Setting"
             />
@@ -51,17 +51,17 @@ const Relations = ({ anime }: RelationsProps) => {
         )) || []),
       ...(anime?.relations?.spinOff.filter(isPresent).map((spinOff) => (
         <SwiperSlide key={spinOff.id}>
-          <PrimaryRelation anime={spinOff} label="Spin-off" />
+          <AnimeRelation anime={spinOff} label="Spin-off" />
         </SwiperSlide>
       )) || []),
       ...(anime?.relations?.summary.filter(isPresent).map((summary) => (
         <SwiperSlide key={summary.id}>
-          <PrimaryRelation anime={summary} label="Summary" />
+          <AnimeRelation anime={summary} label="Summary" />
         </SwiperSlide>
       )) || []),
       ...(anime?.relations?.other.filter(isPresent).map((other) => (
         <SwiperSlide key={other.id}>
-          <PrimaryRelation anime={other} label="Other" />
+          <AnimeRelation anime={other} label="Other" />
         </SwiperSlide>
       )) || []),
     ],
@@ -82,7 +82,7 @@ const Relations = ({ anime }: RelationsProps) => {
   )
 }
 
-export default Relations
+export default RelatedAnime
 
 const Title = tw.h2`text-xl font-semibold mb-2`
 
