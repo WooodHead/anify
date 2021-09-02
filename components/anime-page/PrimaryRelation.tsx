@@ -1,5 +1,6 @@
 import tw from 'twin.macro'
 import { AnimePoster } from 'components/anime'
+import Link from 'next/link'
 
 type PrimaryRelationProps = {
   anime: Anime
@@ -8,20 +9,27 @@ type PrimaryRelationProps = {
 
 const PrimaryRelation = ({ anime, label }: PrimaryRelationProps) => {
   return (
-    <Container>
-      <AnimePoster
-        title={anime.englishTitle || anime.title || ''}
-        mainImage={anime.mainImage || ''}
-        mainImageBlurred={anime.mainImageBlurred || ''}
-        scale={0.6}
-      />
-      <Label>{label}</Label>
-    </Container>
+    <Link
+      key={anime.slug}
+      href={`/anime/${anime.shortId}/${anime.slug}`}
+      passHref
+    >
+      <Container>
+        <AnimePoster
+          title={anime.englishTitle || anime.title || ''}
+          mainImage={anime.mainImage || ''}
+          mainImageBlurred={anime.mainImageBlurred || ''}
+          scale={0.6}
+          priority
+          overlay={<Label>{label}</Label>}
+        />
+      </Container>
+    </Link>
   )
 }
 
 export default PrimaryRelation
 
-const Container = tw.div`relative inline-block overflow-hidden`
+const Container = tw.a`block relative w-min`
 
-const Label = tw.div`absolute bottom-0 left-0 w-full text-center p-2 text-sm bg-gray-900 bg-opacity-90 text-white`
+const Label = tw.div`text-center p-2 text-sm font-semibold bg-gray-900 bg-opacity-90! text-white dark:text-gray-900 dark:bg-white`

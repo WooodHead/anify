@@ -128,19 +128,22 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
 
         <Relations anime={anime} />
 
-        <TrailerVideo isLoaded={isLoaded}>
-          {anime?.trailer ? (
-            <iframe
-              // prevent autoplay
-              src={anime.trailer.replace('autoplay=1', 'autoplay=0')}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-            />
-          ) : null}
-        </TrailerVideo>
+        <div>
+          <SectionTitle>Trailer</SectionTitle>
+          <TrailerVideo isLoaded={isLoaded}>
+            {anime?.trailer ? (
+              <iframe
+                // prevent autoplay
+                src={anime.trailer.replace('autoplay=1', 'autoplay=0')}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              />
+            ) : null}
+          </TrailerVideo>
+        </div>
       </StatisticGrid>
     </Container>
   )
@@ -177,6 +180,8 @@ const ScoreTotal = tw.span`text-base opacity-50`
 const ScoreLoadingSkeleton = styled(Skeleton)<{ isLoaded: boolean }>`
   ${({ isLoaded }) => (isLoaded ? tw`h-auto` : `height: 80px;`)}
 `
+
+const SectionTitle = tw.h2`text-xl font-semibold mb-2`
 
 const TrailerVideo = styled(Skeleton)`
   position: relative;

@@ -12,6 +12,8 @@ const CustomStyles = createGlobalStyle<{ resolvedTheme?: string }>`
     --primary-color-dark: ${theme`colors.emerald.200`};
     --primary-color-hover: ${theme`colors.emerald.600`};
     --primary-color-dark-hover: ${theme`colors.emerald.300`};
+
+    --swiper-navigation-size: 28px;
   }
 
   button, a {
@@ -40,19 +42,17 @@ const CustomStyles = createGlobalStyle<{ resolvedTheme?: string }>`
         : 'var(--primary-color)'};
   }
 
-  
 
   .swiper-button-prev {
-    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all`}
+    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all font-black!`}
     left: 0px;
-    top: 16px;
+    top: 14px;
   }
 
   .swiper-button-next {
-    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all`}
-    height: 100%;
+    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all font-black!`}
     right: 0px;
-    top: 16px;
+    top: 14px;
   }
 
   .swiper-button-disabled {
