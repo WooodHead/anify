@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const dynamo = new DynamoDB()
 
-  const data = await dynamo.getAnime({
+  const data = await dynamo.getAnimeWithRelations({
     shortId: params?.shortId || '',
     slug: params?.slug || '',
   })

@@ -7,6 +7,7 @@ import { isPresent } from 'utils'
 import _ from 'lodash'
 import SeasonTag from './SeasonTag'
 import StatisticCard from './StatisticCard'
+import RelatedAnime from './RelatedAnime'
 
 type InformationSectionProps = {
   isLoaded: boolean
@@ -124,19 +125,25 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
             />
           ) : null}
         </ScoreLoadingSkeleton>
-        <TrailerVideo isLoaded={isLoaded}>
-          {anime?.trailer ? (
-            <iframe
-              // prevent autoplay
-              src={anime.trailer.replace('autoplay=1', 'autoplay=0')}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-            />
-          ) : null}
-        </TrailerVideo>
+
+        <RelatedAnime anime={anime} />
+
+        <div>
+          <SectionTitle>Trailer</SectionTitle>
+          <TrailerVideo isLoaded={isLoaded}>
+            {anime?.trailer ? (
+              <iframe
+                // prevent autoplay
+                src={anime.trailer.replace('autoplay=1', 'autoplay=0')}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+              />
+            ) : null}
+          </TrailerVideo>
+        </div>
       </StatisticGrid>
     </Container>
   )
@@ -147,7 +154,7 @@ export default InformationSection
 const Container = tw.div`grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 mt-8 gap-6`
 
 const MoreInformationColumn = styled(Skeleton)<{ isLoaded: boolean }>`
-  ${tw`bg-white dark:bg-gray-800 px-4 pt-4 pb-1 rounded shadow-lg dark:shadow-none order-2 md:order-1 h-auto`}
+  ${tw`bg-white dark:bg-gray-800 px-4 pt-4 pb-1 rounded shadow-lg dark:shadow-none order-2 md:order-1 self-start`}
 `
 
 const StatisticGrid = styled.div`
@@ -173,6 +180,8 @@ const ScoreTotal = tw.span`text-base opacity-50`
 const ScoreLoadingSkeleton = styled(Skeleton)<{ isLoaded: boolean }>`
   ${({ isLoaded }) => (isLoaded ? tw`h-auto` : `height: 80px;`)}
 `
+
+const SectionTitle = tw.h2`text-xl font-semibold mb-2`
 
 const TrailerVideo = styled(Skeleton)`
   position: relative;
