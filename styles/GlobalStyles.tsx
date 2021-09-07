@@ -58,6 +58,15 @@ const CustomStyles = createGlobalStyle<{ resolvedTheme?: string }>`
   .swiper-button-disabled {
     ${tw`hidden`}
   }
+
+  .swiper-slide {
+    width: auto !important;
+  }
+
+  .swiper {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
 `
 
 const GlobalStyles = () => {

@@ -74,7 +74,7 @@ const RelatedAnime = ({ anime }: RelatedAnimeProps) => {
     <div>
       <Title>Related Anime</Title>
       <Container>
-        <Swiper slidesPerView={5.5} navigation>
+        <Swiper slidesPerView="auto" spaceBetween={10} navigation>
           {relatedAnimes}
         </Swiper>
       </Container>
