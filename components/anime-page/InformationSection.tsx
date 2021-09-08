@@ -8,6 +8,7 @@ import _ from 'lodash'
 import SeasonTag from './SeasonTag'
 import StatisticCard from './StatisticCard'
 import RelatedAnime from './RelatedAnime'
+import AnimeTrailer from './AnimeTrailer'
 
 type InformationSectionProps = {
   isLoaded: boolean
@@ -128,22 +129,7 @@ const InformationSection = ({ isLoaded, anime }: InformationSectionProps) => {
 
         <RelatedAnime anime={anime} />
 
-        <div>
-          <SectionTitle>Trailer</SectionTitle>
-          <TrailerVideo isLoaded={isLoaded}>
-            {anime?.trailer ? (
-              <iframe
-                // prevent autoplay
-                src={anime.trailer.replace('autoplay=1', 'autoplay=0')}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-            ) : null}
-          </TrailerVideo>
-        </div>
+        <AnimeTrailer isLoaded={isLoaded} anime={anime} />
       </StatisticGrid>
     </Container>
   )
@@ -179,20 +165,4 @@ const ScoreTotal = tw.span`text-base opacity-50`
 
 const ScoreLoadingSkeleton = styled(Skeleton)<{ isLoaded: boolean }>`
   ${({ isLoaded }) => (isLoaded ? tw`h-auto` : `height: 80px;`)}
-`
-
-const SectionTitle = tw.h2`text-xl font-semibold mb-2`
-
-const TrailerVideo = styled(Skeleton)`
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
-  height: 0;
-
-  iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
 `
