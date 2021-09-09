@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
 import { isPresent } from 'utils'
 import tw from 'twin.macro'
-import SwiperCore, { Navigation } from 'swiper'
+import SwiperCore, { Navigation, FreeMode } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import AnimeRelation from './AnimeRelation'
 
-SwiperCore.use([Navigation])
+SwiperCore.use([Navigation, FreeMode])
 
 type RelatedAnimeProps = {
   anime?: Anime | null
@@ -74,7 +74,7 @@ const RelatedAnime = ({ anime }: RelatedAnimeProps) => {
     <div>
       <Title>Related Anime</Title>
       <Container>
-        <Swiper slidesPerView="auto" spaceBetween={10} navigation>
+        <Swiper slidesPerView="auto" spaceBetween={10} navigation freeMode>
           {relatedAnimes}
         </Swiper>
       </Container>

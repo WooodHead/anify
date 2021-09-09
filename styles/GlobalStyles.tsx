@@ -44,13 +44,13 @@ const CustomStyles = createGlobalStyle<{ resolvedTheme?: string }>`
 
 
   .swiper-button-prev {
-    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all font-black!`}
+    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all font-black! hidden md:flex`}
     left: 0px;
     top: 14px;
   }
 
   .swiper-button-next {
-    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all font-black!`}
+    ${tw`bg-gray-900 bg-opacity-50 h-full text-white px-8 opacity-0 hover:opacity-100 transition-all font-black! hidden md:flex`}
     right: 0px;
     top: 14px;
   }
